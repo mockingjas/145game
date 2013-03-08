@@ -29,10 +29,8 @@ public class Bomberman extends JFrame {
         board.add( square );
         
         int row = (i / 11) % 2;
-        if (row == 0 )
-            square.setBackground( Color.white );
-        else
-            square.setBackground( i % 2 == 1 ? Color.white : Color.gray );
+        if (row == 0 ) square.setBackground( Color.white );
+        else square.setBackground( i % 2 == 1 ? Color.white : Color.gray );
       }
       
       // Randomize wall positions (green)
@@ -44,15 +42,28 @@ public class Bomberman extends JFrame {
         if( row != 0 ){
             if( i % 2 == 1 ){
                wall = rand.nextInt(2);
-               if( wall == 0 && i != 0 && i != 1 && i != 9 && i != 10 && i != 11 && i != 21 && i != 99 && i != 109 && i != 110 && i != 111 && i != 119 && i != 120) board.getComponent(i).setBackground(Color.green);    
+               if( wall == 0 && i != 0 && i != 1 && i != 9 && i != 10 && i != 11 && i != 21 && i != 99 && i != 109 && i != 110 && i != 111 && i != 119 && i != 120)
+                    board.getComponent(i).setBackground(Color.green);    
             }
         }
         else{
            wall = rand.nextInt(2);
-           if( wall == 0 && i != 0 && i != 1 && i != 9 && i != 10 && i != 11 && i != 21 && i != 99 && i != 109 && i != 110 && i != 111 && i != 119 && i != 120) board.getComponent(i).setBackground(Color.green);     
+           if( wall == 0 && i != 0 && i != 1 && i != 9 && i != 10 && i != 11 && i != 21 && i != 99 && i != 109 && i != 110 && i != 111 && i != 119 && i != 120)
+               board.getComponent(i).setBackground(Color.green);     
         }
         i++;
      }
+       //Randomize Starting point
+       int start = rand.nextInt(4);
+       JLabel piece = new JLabel( new ImageIcon("data/walk1.gif") );
+       JPanel panel = null;
+       if( start == 0 ) panel = (JPanel)board.getComponent(0);
+       else if( start == 1) panel = (JPanel)board.getComponent(10);
+       else if( start == 2) panel = (JPanel)board.getComponent(110);
+       else if( start == 3) panel = (JPanel)board.getComponent(120);
+       panel.add(piece);          
+       
+       
     }
     
     public static void main(String[] args) {
@@ -61,7 +72,6 @@ public class Bomberman extends JFrame {
         b.pack();
         b.setResizable(true);
         b.setLocationRelativeTo( null );
-        b.setVisible(true);
         b.setVisible(true);
     }
 }
