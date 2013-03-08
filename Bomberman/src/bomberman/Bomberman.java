@@ -29,7 +29,7 @@ public class Bomberman extends JFrame {
         board.add( square );
         
         int row = (i / 11) % 2;
-        if (row == 0)
+        if (row == 0 )
             square.setBackground( Color.white );
         else
             square.setBackground( i % 2 == 1 ? Color.white : Color.gray );
@@ -43,13 +43,13 @@ public class Bomberman extends JFrame {
         int row = (i / 11) % 2;
         if( row != 0 ){
             if( i % 2 == 1 ){
-                wall = rand.nextInt(3);
-                if( wall == 0 ) board.getComponent(i).setBackground(Color.green);    
+               wall = rand.nextInt(2);
+               if( wall == 0 && i != 0 && i != 1 && i != 9 && i != 10 && i != 11 && i != 21 && i != 99 && i != 109 && i != 110 && i != 111 && i != 119 && i != 120) board.getComponent(i).setBackground(Color.green);    
             }
         }
         else{
-           wall = rand.nextInt(3);
-           if( wall == 0 ) board.getComponent(i).setBackground(Color.green);     
+           wall = rand.nextInt(2);
+           if( wall == 0 && i != 0 && i != 1 && i != 9 && i != 10 && i != 11 && i != 21 && i != 99 && i != 109 && i != 110 && i != 111 && i != 119 && i != 120) board.getComponent(i).setBackground(Color.green);     
         }
         i++;
      }
