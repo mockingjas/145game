@@ -18,8 +18,8 @@ public class Bomberman extends JFrame implements KeyListener {
     JLabel piece;
 
     public Bomberman() {
-        ImageIcon img = new ImageIcon("data/mario.gif");
-        piece = new JLabel(img);
+        ImageIcon mario = new ImageIcon("data/mario.gif");
+        piece = new JLabel(mario);
         Dimension boardSize = new Dimension(600, 600);
         layeredPane = new JLayeredPane();
         getContentPane().add(layeredPane);
@@ -34,21 +34,27 @@ public class Bomberman extends JFrame implements KeyListener {
         // board, white - traversible, gray - pillars
         for (int i = 0; i < 121; i++) {
             JPanel square = new JPanel(new BorderLayout());
-            board.add(square);
-
+            String file_bg = "";
             int row = (i / 11) % 2;
             if (row == 0) {
                 square.setBackground(Color.white);
+                //file_bg = "data/floor.png";
+                
             } //  else square.setBackground( i % 2 == 1 ? Color.white : Color.gray  );
             else {
                 if (i % 2 == 1) {
                     square.setBackground(Color.white);
+                    //file_bg = "data/floor.png";
                 } else {
                     square.setBackground(Color.gray);
-                    JLabel temp = new JLabel();
-                    square.add(temp);
+                    file_bg = "data/blocks.png";
                 }
             }
+            JLabel temp = new JLabel(new ImageIcon(file_bg));
+            temp.setVisible(true);
+            square.add(temp);
+            board.add(square);
+
         }
 
         // Randomize wall positions (green)
@@ -62,7 +68,7 @@ public class Bomberman extends JFrame implements KeyListener {
                     wall = rand.nextInt(2);
                     if (wall == 0 && i != 0 && i != 1 && i != 9 && i != 10 && i != 11 && i != 21 && i != 99 && i != 109 && i != 110 && i != 111 && i != 119 && i != 120) {
                         board.getComponent(i).setBackground(Color.green);
-                        JLabel temp = new JLabel();
+                        JLabel temp = new JLabel(new ImageIcon("data/bricks.png"));
                         ((JPanel)board.getComponent(i)).add(temp);
                     }
                 }
@@ -70,7 +76,7 @@ public class Bomberman extends JFrame implements KeyListener {
                 wall = rand.nextInt(2);
                 if (wall == 0 && i != 0 && i != 1 && i != 9 && i != 10 && i != 11 && i != 21 && i != 99 && i != 109 && i != 110 && i != 111 && i != 119 && i != 120) {
                     board.getComponent(i).setBackground(Color.green);
-                    JLabel temp = new JLabel();
+                    JLabel temp = new JLabel(new ImageIcon("data/bricks.png"));
                     ((JPanel)board.getComponent(i)).add(temp);
                 }
             }
@@ -94,7 +100,7 @@ public class Bomberman extends JFrame implements KeyListener {
         }
         panel.add(piece);
 
-        image = img.getImage();
+        image = mario.getImage();
         x = 40;
         y = 60;
         // Move  
