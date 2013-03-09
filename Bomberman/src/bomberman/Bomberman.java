@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.Timer;
+import java.lang.Object;
 
 public class Bomberman extends JFrame implements KeyListener {
 
@@ -122,14 +124,15 @@ public class Bomberman extends JFrame implements KeyListener {
     public Image getImage() {
         return image;
     }
-
+    int bomb;
+    Timer t;
     public void keyPressed(KeyEvent e) {
         JPanel panel = (JPanel) board.getComponent(loc);
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_LEFT) {
             dx = -1;
-            panel.remove(0);
+            panel.remove(piece);
             if(loc-1 >= 0 || loc % 11 != 0) {
             Color p = ((JPanel)board.getComponent(loc-1)).getBackground();
             System.out.println(p);
@@ -152,7 +155,7 @@ public class Bomberman extends JFrame implements KeyListener {
 
         if (key == KeyEvent.VK_RIGHT) {
             dx = 1;
-            panel.remove(0);
+            panel.remove(piece);
             if(loc+1 < 121 || loc % 11 != 10) {
                 Color p = ((JPanel)board.getComponent(loc+1)).getBackground();
                 System.out.println(p);
@@ -175,7 +178,7 @@ public class Bomberman extends JFrame implements KeyListener {
 
         if (key == KeyEvent.VK_UP) {
             dy = -1;
-            panel.remove(0);
+            panel.remove(piece);
             if(loc-11 >= 0 || loc >= 11) {
             Color p = ((JPanel)board.getComponent(loc-11)).getBackground();
             System.out.println(p);
@@ -198,7 +201,7 @@ public class Bomberman extends JFrame implements KeyListener {
 
         if (key == KeyEvent.VK_DOWN) {
             dy = 1;
-            panel.remove(0);
+            panel.remove(piece);
             if(loc+11 < 121 || loc <= 109) {
                 Color p = ((JPanel)board.getComponent(loc+11)).getBackground();
                 System.out.println(p);
@@ -218,7 +221,42 @@ public class Bomberman extends JFrame implements KeyListener {
             validate();
             repaint();
         }
+        
+        if (key == KeyEvent.VK_SPACE) {
+            panel.add(new JLabel( new ImageIcon("data/bomb.png") ));
+            
+            validate();
+            repaint();
+            int delay = 5000;
+            bomb=loc;
+            ActionListener taskPerformer = new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    fire(bomb);
+                }
+            };
+            t = new Timer(delay, taskPerformer);
+            t.start();
+        }
 
+    }
+    JPanel p;
+    public void fire(int loc) {
+        System.out.println("FIRE!");
+        System.err.println(loc);
+        p = (JPanel) board.getComponent(loc);
+        p.removeAll();
+        p.add(new JLabel(new ImageIcon("data/fire_mid.png")));
+        validate();
+        repaint();
+        t.stop();
+        ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                p.removeAll();
+            }
+        };
+        Timer x = new Timer(2000, taskPerformer);
+        //x.start();
+        System.err.println("asdfasdf");
     }
 
     public void keyReleased(KeyEvent e) {
@@ -238,6 +276,10 @@ public class Bomberman extends JFrame implements KeyListener {
 
         if (key == KeyEvent.VK_DOWN) {
             dy = 0;
+        }
+        
+        if (key == KeyEvent.VK_SPACE) {
+            
         }
     }
 
