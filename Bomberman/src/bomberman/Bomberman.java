@@ -18,7 +18,7 @@ public class Bomberman extends JFrame implements KeyListener{
    JLabel piece; 
 
     public Bomberman(){
-       ImageIcon img = new ImageIcon("data/walk1.gif");
+       ImageIcon img = new ImageIcon("data/mario.gif");
        piece = new JLabel( img );
       Dimension boardSize = new Dimension(600, 600);
       layeredPane = new JLayeredPane();
@@ -106,8 +106,8 @@ public class Bomberman extends JFrame implements KeyListener{
             dx = -1;
             panel.remove(0);
             loc--;
-            panel= (JPanel)board.getComponent(loc);
-            panel.add(piece);
+            panel = (JPanel)board.getComponent(loc);
+            panel.add(new JLabel(new ImageIcon("data/mario_left.gif")));
             validate();
             repaint();
         }
@@ -117,7 +117,7 @@ public class Bomberman extends JFrame implements KeyListener{
             panel.remove(0);
             loc++;
             panel= (JPanel)board.getComponent(loc);
-            panel.add(piece);
+            panel.add(new JLabel(new ImageIcon("data/mario_right.gif")));
             validate();
             repaint();
         }
