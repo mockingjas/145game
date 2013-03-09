@@ -6,17 +6,25 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 
-public class Bomberman extends JFrame {
+public class Bomberman extends JFrame implements KeyListener{
    JLayeredPane layeredPane;
    JPanel board;
+   private int dx;
+   private int dy;
+   private int x;
+   private int y;
+   private Image image;
+   int loc=0;
+   JLabel piece; 
 
     public Bomberman(){
+       ImageIcon img = new ImageIcon("data/walk1.gif");
+       piece = new JLabel( img );
       Dimension boardSize = new Dimension(600, 600);
-      
       layeredPane = new JLayeredPane();
       getContentPane().add(layeredPane);
       layeredPane.setPreferredSize(boardSize);
-      
+      addKeyListener(this);
       board = new JPanel();
       layeredPane.add(board, JLayeredPane.DEFAULT_LAYER);
       board.setLayout( new GridLayout(11, 11) );
@@ -30,7 +38,12 @@ public class Bomberman extends JFrame {
         
         int row = (i / 11) % 2;
         if (row == 0 ) square.setBackground( Color.white );
-        else square.setBackground( i % 2 == 1 ? Color.white : Color.gray );
+      //  else square.setBackground( i % 2 == 1 ? Color.white : Color.gray  );
+        else{if(i%2==1){square.setBackground(Color.white);}
+        else{square.setBackground(Color.gray); 
+                JLabel invi= new JLabel();
+                square.add(invi);}
+            }
       }
       
       // Randomize wall positions (green)
@@ -55,15 +68,100 @@ public class Bomberman extends JFrame {
      }
        //Randomize Starting point
        int start = rand.nextInt(4);
-       JLabel piece = new JLabel( new ImageIcon("data/walk1.gif") );
        JPanel panel = null;
-       if( start == 0 ) panel = (JPanel)board.getComponent(0);
-       else if( start == 1) panel = (JPanel)board.getComponent(10);
-       else if( start == 2) panel = (JPanel)board.getComponent(110);
-       else if( start == 3) panel = (JPanel)board.getComponent(120);
-       panel.add(piece);          
+       if( start == 0 ) {loc=0; panel = (JPanel)board.getComponent(0);}
+       else if( start == 1) {loc=10; panel = (JPanel)board.getComponent(10);}
+       else if( start == 2) {loc=110; panel = (JPanel)board.getComponent(110);}
+       else if( start == 3) {loc=120; panel = (JPanel)board.getComponent(120);}
+       panel.add(piece);         
        
-       
+        image = img.getImage();
+        x = 40;
+        y = 60;
+       // Move  
+    }
+    
+     public void move() {
+        x += dx;
+        y += dy;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void keyPressed(KeyEvent e) {
+        JPanel panel= (JPanel)board.getComponent(loc);
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_LEFT) {
+            dx = -1;
+            panel.remove(0);
+            loc--;
+            panel= (JPanel)board.getComponent(loc);
+            panel.add(piece);
+            validate();
+            repaint();
+        }
+
+        if (key == KeyEvent.VK_RIGHT) {
+            dx = 1;
+            panel.remove(0);
+            loc++;
+            panel= (JPanel)board.getComponent(loc);
+            panel.add(piece);
+            validate();
+            repaint();
+        }
+
+        if (key == KeyEvent.VK_UP) {
+            dy = -1;
+            panel.remove(0);
+            loc-=11;
+            panel= (JPanel)board.getComponent(loc);
+            panel.add(piece);
+            validate();
+            repaint();            
+        }
+
+        if (key == KeyEvent.VK_DOWN) {
+            dy = 1;
+            panel.remove(0);
+            loc+=11;
+            panel= (JPanel)board.getComponent(loc);
+            panel.add(piece);
+            validate();
+            repaint();
+        }
+            
+    }
+
+    public void keyReleased(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_LEFT) {
+            dx = 0;
+        }
+
+        if (key == KeyEvent.VK_RIGHT) {
+            dx = 0;
+        }
+
+        if (key == KeyEvent.VK_UP) {
+            dy = 0;
+        }
+
+        if (key == KeyEvent.VK_DOWN) {
+            dy = 0;
+        }
     }
     
     public static void main(String[] args) {
@@ -73,5 +171,9 @@ public class Bomberman extends JFrame {
         b.setResizable(true);
         b.setLocationRelativeTo( null );
         b.setVisible(true);
+    }
+
+    public void keyTyped(KeyEvent e) {
+        
     }
 }
