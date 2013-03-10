@@ -7,22 +7,24 @@ import java.lang.Object;
 import java.io.*;
 import java.net.*;
 
-public class MyClient extends JFrame implements KeyListener {
+public class MyClient extends JFrame {
 	static Socket socket;
 	static MyConnection conn;
 	static int globalCtr = 0;
 	static String[] clientList = new String[100];
 	static String reply;
+	static String pos1, pos2;
 	
 	// GUI
     JLayeredPane layeredPane;
 	static JPanel board;
 	JPanel square;
-    int loc = 0;
-    JLabel piece;
+    static int loc = 0;
+    static JLabel piece;
 	static JLabel temp;
-	ImageIcon mario;
+	static ImageIcon mario, luigi;
 	Dimension boardSize;
+	static JPanel panel;
 	
 	Image image;
 	private int dx;
@@ -33,13 +35,13 @@ public class MyClient extends JFrame implements KeyListener {
     public MyClient() {
 
 		// GUI
-        mario = new ImageIcon("data/mario.gif");
-        piece = new JLabel(mario);
+		mario = new ImageIcon("data/mario.gif");
+		luigi =  new ImageIcon("data/luigi.gif");
         boardSize = new Dimension(600, 600);
         layeredPane = new JLayeredPane();
         getContentPane().add(layeredPane);
         layeredPane.setPreferredSize(boardSize);
-        addKeyListener(this);
+		// addKeyListener(this);
         board = new JPanel();
         layeredPane.add(board, JLayeredPane.DEFAULT_LAYER);
         board.setLayout(new GridLayout(11, 11));
@@ -83,7 +85,7 @@ public class MyClient extends JFrame implements KeyListener {
 		}		
     }
 
-    public void move() {
+/*    public void move() {
         x += dx;
         y += dy;
     }
@@ -259,7 +261,49 @@ public class MyClient extends JFrame implements KeyListener {
         if (key == KeyEvent.VK_SPACE) {
             
         }
-    }		
+    }	*/	
+	
+	public static void setStart1(String pos) throws Exception {
+
+        piece = new JLabel(mario);
+		
+		if (pos.equals("0")) {
+			loc = 0;
+			panel = (JPanel) board.getComponent(0);
+		} else if (pos.equals("1")) {
+			loc = 10;
+			panel = (JPanel) board.getComponent(10);
+		} else if (pos.equals("2")) {
+			loc = 110;
+			panel = (JPanel) board.getComponent(110);
+		} else if (pos.equals("3")) {
+			loc = 120;
+			panel = (JPanel) board.getComponent(120);
+		}
+		panel.add(piece);
+		
+	}
+	
+	public static void setStart2(String pos) throws Exception {
+		
+		piece = new JLabel(luigi);
+		
+		if (pos.equals("0")) {
+			loc = 0;
+			panel = (JPanel) board.getComponent(0);
+		} else if (pos.equals("1")) {
+			loc = 10;
+			panel = (JPanel) board.getComponent(10);
+		} else if (pos.equals("2")) {
+			loc = 110;
+			panel = (JPanel) board.getComponent(110);
+		} else if (pos.equals("3")) {
+			loc = 120;
+			panel = (JPanel) board.getComponent(120);
+		}
+		panel.add(piece);
+		
+	}
 	
 	public static class allGet implements Runnable {
 		Socket s;
@@ -275,11 +319,11 @@ public class MyClient extends JFrame implements KeyListener {
 					System.out.println(reply);
 					
 					// Show walls
-					if( reply.equals("/start board") ){
+					if( reply.equals("/startboard") ){
 						int wall[] = new int[121];
 						int i = 0;
 						reply = conn.getMessage();
-						while( !reply.equals("/end board") ){
+						while( !reply.equals("/endboard") ){
 							wall[i] = Integer.parseInt(reply);
 							System.out.println(wall[i]);
 							i++;
@@ -307,8 +351,28 @@ public class MyClient extends JFrame implements KeyListener {
 						
 					}
 					
-					if( reply.equals("Game full.") ) break;
+					else if( reply.equals("/startpos") ){
+						
+						reply = conn.getMessage();
+				        
+						while( !reply.equals("/endpos") ){
+							if( reply.startsWith("/pos1")){
+								pos1 = reply.substring(6);
+								System.out.println(reply.substring(6));
+								setStart1(pos1);
+							}
+							else if( reply.startsWith("/pos2")){
+								pos2 = reply.substring(6);
+								System.out.println(reply.substring(6));
+								setStart1(pos1);
+								setStart2(pos2);
+							}
+							reply = conn.getMessage();
+						}
+						
+					}
 					
+					else if( reply.equals("Game full.") ) break;
 				}
 				System.exit(0);
 			}catch (Exception e) {
@@ -327,7 +391,7 @@ public class MyClient extends JFrame implements KeyListener {
         b.setVisible(true);
 	}
 	
-    public void keyTyped(KeyEvent e) {
-    }
+//    public void keyTyped(KeyEvent e) {
+//    }
 	
 }

@@ -65,14 +65,20 @@ public class MyServer {
 	}
 	
 	public static void sendPos() throws Exception {	
-		for( int i = 0; i < 2; i++){
+		sendToAll("/startpos");
+		for( int i = 0; i < clientName.length; i++){
 			if(clientName[i] != null ){
-				if( i == 0 ) System.out.println("client: "+clientName[i] + " " + start1);
-				if( i == 1 ) System.out.println("client: "+clientName[i] + " " + start2);
-//				sendToAll("/name" + clientName[i]);
+				if( i == 1 ){
+					System.out.println("client: "+clientName[i] + " " + start1);
+					sendToAll("/pos1" + " " + start1);
+				}
+				else if( i == 2 ){
+					System.out.println("client: "+clientName[i] + " " + start2);
+					sendToAll("/pos2" + " " + start2);
+				}
 			}
 		}
-//		sendToAll("/break");
+		sendToAll("/endpos");
 	}
 	
 	public static void main(String args[]) throws Exception {
@@ -98,12 +104,12 @@ public class MyServer {
 					printList();
 					
 					// send board config
-					sendToAll("/start board");
+					sendToAll("/startboard");
 					for( int i = 0; i < 120; i++ ){
 						System.out.print(wall[i]);
 						sendToAll(Integer.toString(wall[i]));
 					}
-					sendToAll("/end board");			
+					sendToAll("/endboard");			
 				
 					// position player	
 					Random rand;					
@@ -112,7 +118,6 @@ public class MyServer {
 						start1 = rand.nextInt(4);
 						System.out.println("Start1: " + start1);
 						sendPos();
-//						sendToAll(Integer.toString(start1));
 					}
 					if( allCtr == 2 ){
 						do{
@@ -121,7 +126,6 @@ public class MyServer {
 						} while(start1 == start2);
 						System.out.println("Start1: " + start1 + "Start2: "+start2);
 						sendPos();
-//						sendToAll(Integer.toString(start2));
 					}
 						
 					Thread t1 = new Thread(new clientHandler(socket));
