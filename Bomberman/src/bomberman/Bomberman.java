@@ -134,21 +134,22 @@ public class Bomberman extends JFrame implements KeyListener {
             dx = -1;
             panel.remove(piece);
             if(loc-1 >= 0 || loc % 11 != 0) {
-            Color p = ((JPanel)board.getComponent(loc-1)).getBackground();
-            System.out.println(p);
-               
-            int g = p.getGreen();
-            int r = p.getRed();
-            int b = p.getBlue();
-            
-            // Bawal green
-            if( (r == 0 && b == 0 && g == 255) || loc % 11 == 0 ){}
-            //Bawal gray
-            else if( (r == 128 && b == 128 && g == 128) || loc % 11 == 0 ){}
-            else loc--;
+                Color p = ((JPanel)board.getComponent(loc-1)).getBackground();
+                System.out.println(p);
+
+                int g = p.getGreen();
+                int r = p.getRed();
+                int b = p.getBlue();
+
+                // Bawal green
+                if( (r == 0 && b == 0 && g == 255) || loc % 11 == 0 ){}
+                //Bawal gray
+                else if( (r == 128 && b == 128 && g == 128) || loc % 11 == 0 ){}
+                else loc--;
             }
             panel = (JPanel) board.getComponent(loc);
-            panel.add(new JLabel(new ImageIcon("data/mario_left.gif")));
+            piece = new JLabel(new ImageIcon("data/mario_left.gif"));
+            panel.add(piece);
             validate();
             repaint();
         }
@@ -171,7 +172,8 @@ public class Bomberman extends JFrame implements KeyListener {
                 else loc++;
             }
             panel = (JPanel) board.getComponent(loc);
-            panel.add(new JLabel(new ImageIcon("data/mario_right.gif")));
+            piece = new JLabel(new ImageIcon("data/mario_right.gif"));
+            panel.add(piece);
             validate();
             repaint();
         }
@@ -180,18 +182,18 @@ public class Bomberman extends JFrame implements KeyListener {
             dy = -1;
             panel.remove(piece);
             if(loc-11 >= 0 || loc >= 11) {
-            Color p = ((JPanel)board.getComponent(loc-11)).getBackground();
-            System.out.println(p);
-               
-            int g = p.getGreen();
-            int r = p.getRed();
-            int b = p.getBlue();
-            
-            // Bawal green
-            if( (r == 0 && b == 0 && g == 255) || loc < 11 ){}
-            //Bawal gray
-            else if( (r == 128 && b == 128 && g == 128) || loc < 11 ){}
-            else loc -= 11;
+                Color p = ((JPanel)board.getComponent(loc-11)).getBackground();
+                System.out.println(p);
+
+                int g = p.getGreen();
+                int r = p.getRed();
+                int b = p.getBlue();
+
+                // Bawal green
+                if( (r == 0 && b == 0 && g == 255) || loc < 11 ){}
+                //Bawal gray
+                else if( (r == 128 && b == 128 && g == 128) || loc < 11 ){}
+                else loc -= 11;
             }
             panel = (JPanel) board.getComponent(loc);
             panel.add(piece);
