@@ -42,24 +42,62 @@ public class Player extends JLabel {
         return loc;
     }
 
-    public void moveRight(Board board, int loc) {
-        dx = -1;
+    public int moveRight(Board board, int loc) {
+        dx = 1;
         if(loc+1 < 121 || loc % 11 != 10) {
-                Color p = ((JPanel)board.getComponent(loc+1)).getBackground();
-                System.out.println(p);
+			Color p = ((JPanel)board.getComponent(loc+1)).getBackground();
+			System.out.println(p);
 
-                int g = p.getGreen();
-                int r = p.getRed();
-                int b = p.getBlue();
+			int g = p.getGreen();
+			int r = p.getRed();
+			int b = p.getBlue();
 
-                // Bawal green
-                if( (r == 0 && b == 0 && g == 255) || loc % 11 == 10 ){}
-                //Bawal gray
-                else if( (r == 128 && b == 128 && g == 128) || loc % 11 == 10 ){}
-                else loc++;
-            }
-        
+			// Bawal green
+			if( (r == 0 && b == 0 && g == 255) || loc % 11 == 10 ){}
+			//Bawal gray
+			else if( (r == 128 && b == 128 && g == 128) || loc % 11 == 10 ){}
+			else loc++;
+        }
+        return loc;
     }
+	
+	public int moveUp(Board board, int loc){
+		dy = -1;
+        if(loc-11 >= 0 || loc >= 11) {
+            Color p = ((JPanel)board.getComponent(loc-11)).getBackground();
+            System.out.println(p);
+
+			int g = p.getGreen();
+			int r = p.getRed();
+			int b = p.getBlue();
+
+			// Bawal green
+			if( (r == 0 && b == 0 && g == 255) || loc < 11 ){}
+			//Bawal gray
+			else if( (r == 128 && b == 128 && g == 128) || loc < 11 ){}
+			else loc -= 11;
+		}
+		return loc;		
+	}
+	
+	public int moveDown(Board board, int loc){
+		dy = 1;
+        if(loc+11 < 121 || loc <= 109) {
+            Color p = ((JPanel)board.getComponent(loc+11)).getBackground();
+            System.out.println(p);
+
+			int g = p.getGreen();
+			int r = p.getRed();
+			int b = p.getBlue();
+
+			// Bawal green
+			if( (r == 0 && b == 0 && g == 255) || loc > 109 ){}
+			//Bawal gray
+			else if( (r == 128 && b == 128 && g == 128) || loc > 109 ){}
+			else loc += 11;
+		}
+		return loc;			
+	}
 
     public int getX() {
         return x;

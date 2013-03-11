@@ -54,19 +54,19 @@ public class Bomberman extends JFrame implements KeyListener {
 //         int loc = board.getLoc();
         
         if (key == KeyEvent.VK_LEFT) {
-        	con.sendMessage("/playerMoveLeft " + playerMe.name + " " + (playerMe.loc-1));
+        	con.sendMessage("/playerMoveLeft " + playerMe.name + " " + (playerMe.loc));
         }
 
         if (key == KeyEvent.VK_RIGHT) {
-            con.sendMessage("/playerMoveRight " + playerMe.name + " " + (playerMe.loc+1));
+            con.sendMessage("/playerMoveRight " + playerMe.name + " " + (playerMe.loc));
         }
 
         if (key == KeyEvent.VK_UP) {
-            con.sendMessage("/playerMoveUp " + playerMe.name + " " + (playerMe.loc-11));
+            con.sendMessage("/playerMoveUp " + playerMe.name + " " + (playerMe.loc));
         }
 
         if (key == KeyEvent.VK_DOWN) {
-            con.sendMessage("/playerMoveDown " + playerMe.name + " " + (playerMe.loc+11));
+            con.sendMessage("/playerMoveDown " + playerMe.name + " " + (playerMe.loc));
         }
         
         if (key == KeyEvent.VK_SPACE) {
