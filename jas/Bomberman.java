@@ -49,9 +49,7 @@ public class Bomberman extends JFrame implements KeyListener {
     }
     
 	public void keyPressed(KeyEvent e) {
-        JPanel panel = (JPanel) board.getComponent(playerMe.loc);
         int key = e.getKeyCode();
-//         int loc = board.getLoc();
         
         if (key == KeyEvent.VK_LEFT) {
         	con.sendMessage("/playerMoveLeft " + playerMe.name + " " + (playerMe.loc));
@@ -74,7 +72,7 @@ public class Bomberman extends JFrame implements KeyListener {
         }
         System.err.println(playerMe.loc);
     }
-        
+	
     JPanel p;
     public void fire(int loc) {
         System.out.println("FIRE!");

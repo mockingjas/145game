@@ -65,10 +65,9 @@ public class MyClient {
 						b.startGame();
 					}
 					else if (msg.startsWith("/playerMoveLeft ")) {
-						System.out.println("NAME:" + msg.substring(16,21));
-						System.out.println("PLAYER:" + playerMe.name);
+						System.out.println("LEFT:" + msg.substring(16,21));
+						String[] loc = msg.split(" ");
 						if (msg.substring(16,21).equals(playerMe.name)) {
-							String[] loc = msg.split(" ");
 							int newLoc = playerMe.moveLeft(b.board, Integer.parseInt(loc[2]));
 							JPanel panel = (JPanel) b.board.getComponent(newLoc);
 							b.playerMe = new Player("data/" + playerMe.name + "_left.gif");
@@ -76,10 +75,7 @@ public class MyClient {
 							playerMe.loc = newLoc;
 							b.playerMe.loc = newLoc;
 							panel.add(playerMe);
-							b.validate();
-							b.repaint();
 						} else if (msg.substring(16,21).equals(playerOpp.name)) {
-							String[] loc = msg.split(" ");
 							int newLoc = playerOpp.moveLeft(b.board, Integer.parseInt(loc[2]));
 							JPanel panel = (JPanel) b.board.getComponent(newLoc);
 							b.playerOpp = new Player("data/" + playerOpp.name + "_left.gif");
@@ -87,15 +83,15 @@ public class MyClient {
 							playerOpp.loc = newLoc;
 							b.playerOpp.loc = newLoc;
 							panel.add(playerOpp);
-							b.validate();
-							b.repaint();
 						}
+						b.validate();
+						b.repaint();
 						System.out.println(msg);
 					}
 					else if (msg.startsWith("/playerMoveRight ")){
 						System.out.println("RIGHT:" + msg.substring(17,22));
+						String[] loc = msg.split(" ");
 						if (msg.substring(17,22).equals(playerMe.name)) {
-							String[] loc = msg.split(" ");
 							int newLoc = playerMe.moveRight(b.board, Integer.parseInt(loc[2]));
 							JPanel panel = (JPanel) b.board.getComponent(newLoc);
 							b.playerMe = new Player("data/" + playerMe.name + "_right.gif");
@@ -103,10 +99,7 @@ public class MyClient {
 							playerMe.loc = newLoc;
 							b.playerMe.loc = newLoc;
 							panel.add(playerMe);
-							b.validate();
-							b.repaint();
 						} else if (msg.substring(17,22).equals(playerOpp.name)) {
-							String[] loc = msg.split(" ");
 							int newLoc = playerOpp.moveRight(b.board, Integer.parseInt(loc[2]));
 							JPanel panel = (JPanel) b.board.getComponent(newLoc);
 							b.playerOpp = new Player("data/" + playerOpp.name + "_right.gif");
@@ -114,15 +107,15 @@ public class MyClient {
 							playerOpp.loc = newLoc;
 							b.playerOpp.loc = newLoc;
 							panel.add(playerOpp);
-							b.validate();
-							b.repaint();
 						}
+						b.validate();
+						b.repaint();
 						System.out.println(msg);						
 					}
 					else if (msg.startsWith("/playerMoveUp ")){
 						System.out.println("UP:" + msg.substring(14,19));
+						String[] loc = msg.split(" ");
 						if (msg.substring(14,19).equals(playerMe.name)) {
-							String[] loc = msg.split(" ");
 							int newLoc = playerMe.moveUp(b.board, Integer.parseInt(loc[2]));
 							JPanel panel = (JPanel) b.board.getComponent(newLoc);
 							b.playerMe = new Player(playerMe.name);
@@ -130,10 +123,7 @@ public class MyClient {
 							playerMe.loc = newLoc;
 							b.playerMe.loc = newLoc;
 							panel.add(playerMe);
-							b.validate();
-							b.repaint();
 						} else if (msg.substring(14,19).equals(playerOpp.name)) {
-							String[] loc = msg.split(" ");
 							int newLoc = playerOpp.moveUp(b.board, Integer.parseInt(loc[2]));
 							JPanel panel = (JPanel) b.board.getComponent(newLoc);
 							b.playerOpp = new Player(playerOpp.name);
@@ -141,15 +131,15 @@ public class MyClient {
 							playerOpp.loc = newLoc;
 							b.playerOpp.loc = newLoc;
 							panel.add(playerOpp);
-							b.validate();
-							b.repaint();
 						}
+						b.validate();
+						b.repaint();
 						System.out.println(msg);						
 					}
 					else if (msg.startsWith("/playerMoveDown ")){
 						System.out.println("DOWN:" + msg.substring(16,21));
+						String[] loc = msg.split(" ");
 						if (msg.substring(16,21).equals(playerMe.name)) {
-							String[] loc = msg.split(" ");
 							int newLoc = playerMe.moveDown(b.board, Integer.parseInt(loc[2]));
 							JPanel panel = (JPanel) b.board.getComponent(newLoc);
 							b.playerMe = new Player(playerMe.name);
@@ -157,10 +147,7 @@ public class MyClient {
 							playerMe.loc = newLoc;
 							b.playerMe.loc = newLoc;
 							panel.add(playerMe);
-							b.validate();
-							b.repaint();
 						} else if (msg.substring(16,21).equals(playerOpp.name)) {
-							String[] loc = msg.split(" ");
 							int newLoc = playerOpp.moveDown(b.board, Integer.parseInt(loc[2]));
 							JPanel panel = (JPanel) b.board.getComponent(newLoc);
 							b.playerOpp = new Player(playerOpp.name);
@@ -168,9 +155,9 @@ public class MyClient {
 							playerOpp.loc = newLoc;
 							b.playerOpp.loc = newLoc;
 							panel.add(playerOpp);
-							b.validate();
-							b.repaint();
-						}						
+						}
+						b.validate();
+						b.repaint();
 						System.out.println(msg);						
 					}
 					else {
