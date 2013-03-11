@@ -42,10 +42,10 @@ public class MyServer {
 				++count;
 				Threads t;
 				if(count == 1) {
-					t = new Threads(socket, count, playernames[0], playernames[1], walls, start1, start2);
+					t = new Threads(socket, count, "mario", "luigi", walls, start1, start2);
 				}
 				else {
-					t = new Threads(socket, count, playernames[1], playernames[0], walls, start2, start1);
+					t = new Threads(socket, count, "luigi", "mario", walls, start2, start1);
 				}
 				t.start();
 			}

@@ -8,9 +8,8 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class Board extends JPanel {
     
-    Player player;
+    Player playerMe, playerOpp;
     Timer t;
-    int loc = 0;
     int bomb;
     public Board(String walls) {
         Dimension thisSize = new Dimension(600, 600);
@@ -63,10 +62,11 @@ public class Board extends JPanel {
         this.setVisible(true);
     }
     
-    public void addPlayer (Player p, int start) {
+    public int addPlayer (Player p, int start) {
         // Random rand = new Random();
         // int start = rand.nextInt(4);
         JPanel panel = null;
+        int loc = 0;
         if (start == 0) {
             loc = 0;
             panel = (JPanel) this.getComponent(0);
@@ -80,16 +80,18 @@ public class Board extends JPanel {
             loc = 120;
             panel = (JPanel) this.getComponent(120);
         }
+        p.loc = loc;
         panel.add(p);
         validate();
         repaint();
+        return p.loc;
     }
+	
+//     public Player getPlayer () {
+//         return player;
+//     }
     
-    public Player getPlayer () {
-        return player;
-    }
-    
-    public int getLoc() {
-        return loc;
-    }
+//     public int getLoc() {
+//         return loc;
+//     }
 }

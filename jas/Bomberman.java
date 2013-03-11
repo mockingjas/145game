@@ -15,14 +15,12 @@ public class Bomberman extends JFrame implements KeyListener {
     JLayeredPane layeredPane;
     Player playerMe;
     Player playerOpp;
-    int startMe, startOpp;
-    int loc;
     int bomb;
     Timer t;
     MyConnection con;
     String walls; 
     
-    public Bomberman (MyConnection con, Player p, Player o, String walls, int startMe, int startOpp) {
+    public Bomberman (MyConnection con, Player p, Player o, String walls) {
         
         this.con = con;
         setTitle("Bomberman");
@@ -36,9 +34,6 @@ public class Bomberman extends JFrame implements KeyListener {
         playerOpp = o;
         this.walls = walls;
         
-        this.startMe = startMe;
-        this.startOpp = startOpp;
-        
         board = new Board(walls);
         layeredPane.add(board, JLayeredPane.DEFAULT_LAYER);
         
@@ -46,42 +41,38 @@ public class Bomberman extends JFrame implements KeyListener {
 		pack();
 		setResizable(true);
 		setLocationRelativeTo(null);
-// 		board.addPlayer(playerMe, startMe);
-// 		board.addPlayer(o, startOpp);
     }
     
     public void startGame() {
-    	board.addPlayer(this.playerMe, this.startMe);
-		board.addPlayer(this.playerOpp, this.startOpp);
+    	this.playerMe.loc = board.addPlayer(this.playerMe, this.playerMe.startPos);
+		this.playerOpp.loc = board.addPlayer(this.playerOpp, this.playerOpp.startPos);
     }
     
 	public void keyPressed(KeyEvent e) {
-        JPanel panel = (JPanel) board.getComponent(loc);
+        JPanel panel = (JPanel) board.getComponent(playerMe.loc);
         int key = e.getKeyCode();
-//         playerMe = board.getPlayer();
-        int loc = board.getLoc();
+//         int loc = board.getLoc();
         
         if (key == KeyEvent.VK_LEFT) {
-        	con.sendMessage("/playerMoveLeft " + (loc-1) + " " + playerMe.name);
-            
+        	con.sendMessage("/playerMoveLeft " + playerMe.name + " " + (playerMe.loc-1));
         }
 
         if (key == KeyEvent.VK_RIGHT) {
-            
+            con.sendMessage("/playerMoveRight " + playerMe.name + " " + (playerMe.loc+1));
         }
 
         if (key == KeyEvent.VK_UP) {
-            
+            con.sendMessage("/playerMoveUp " + playerMe.name + " " + (playerMe.loc-11));
         }
 
         if (key == KeyEvent.VK_DOWN) {
-            
+            con.sendMessage("/playerMoveDown " + playerMe.name + " " + (playerMe.loc+11));
         }
         
         if (key == KeyEvent.VK_SPACE) {
-            
+            con.sendMessage("/playerBomb " + playerMe.name + " " + (playerMe.loc-1));
         }
-        System.err.println(loc);
+        System.err.println(playerMe.loc);
     }
         
     JPanel p;

@@ -9,6 +9,7 @@ public class Player extends JLabel {
 	
 	String name;
     int x, y, dx, dy;
+    int startPos, loc;
 
     public Player(String name) {
         super(new ImageIcon("data/"+name+".gif"));
