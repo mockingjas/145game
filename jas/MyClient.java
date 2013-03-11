@@ -38,21 +38,29 @@ public class MyClient {
 		public void run() {
 			try {
 				while(!(msg=con.getMessage()).equals("/quit")) {
-					if(msg.startsWith("/thisisme")) {
+					if (msg.startsWith("/thisisme ")) {
 						playerMe = new Player(msg.substring(10));
-					} else if (msg.startsWith("/startpos ")) {
+					} 
+					else if (msg.startsWith("/startpos ")) {
 						startMe = Integer.parseInt(msg.substring(10));
-					} else if(msg.startsWith("/thisisopp ")) {
+					} 
+					else if (msg.startsWith("/thisisopp ")) {
 						playerOpp = new Player(msg.substring(11));
-					} else if (msg.startsWith("/opponentstartpos ")) {
+					} 
+					else if (msg.startsWith("/opponentstartpos ")) {
 						startOpp = Integer.parseInt(msg.substring(18));
-					} else if(msg.startsWith("/map ")) {
+					} 
+					else if (msg.startsWith("/map ")) {
 						b = new Bomberman(con, playerMe, playerOpp, msg.substring(5), startMe, startOpp);
 						b.setVisible(true);
 						b.setTitle(playerMe.name + " - Bomberman");
 						b.repaint();
 						System.out.println(msg.substring(5));
-					} else if(msg.startsWith("/playerMoveLeft")) {
+					}
+					else if (msg.startsWith("/startGame")) {
+						b.startGame();
+					}
+					else if (msg.startsWith("/playerMoveLeft ")) {
 // 						int newLoc = b.player.moveLeft(b.board, Integer.parseInt(msg.substring(16)));
 // 						JPanel panel = (JPanel) b.board.getComponent(newLoc);
 // 						b.player = new Player("data/"+player.name+"_left.gif");

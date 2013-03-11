@@ -41,7 +41,7 @@ public class MyServer {
 				System.out.println("Server: " + socket.getInetAddress() + " connect!\n");
 				++count;
 				Threads t;
-				if(count ==1) {
+				if(count == 1) {
 					t = new Threads(socket, count, playernames[0], playernames[1], walls, start1, start2);
 				}
 				else {

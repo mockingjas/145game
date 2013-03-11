@@ -18,7 +18,10 @@ public class Threads extends Thread{
 			while(true) {
 				msg = con.getMessage();
 					if(msg.equals(null)) continue;
-					else System.out.println(msg);
+					else {
+						sendToAll(msg);
+						System.out.println(msg);
+					}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,10 +55,12 @@ public class Threads extends Thread{
 			con.sendMessage("/thisisopp " + oppName);
 			con.sendMessage("/opponentstartpos " + startOpp);
 			con.sendMessage("/map " + walls);
+			if(playerName == "luigi") {
+				sendToAll("/startGame");
+			}
 			for(int i = 0; i < clientList.size(); i++) {
 				//clientList.get(i).
 			}
-	// }		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

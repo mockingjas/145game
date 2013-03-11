@@ -14,6 +14,8 @@ public class Bomberman extends JFrame implements KeyListener {
     Board board;
     JLayeredPane layeredPane;
     Player playerMe;
+    Player playerOpp;
+    int startMe, startOpp;
     int loc;
     int bomb;
     Timer t;
@@ -31,7 +33,11 @@ public class Bomberman extends JFrame implements KeyListener {
         addKeyListener(this);
         
         playerMe = p;
+        playerOpp = o;
         this.walls = walls;
+        
+        this.startMe = startMe;
+        this.startOpp = startOpp;
         
         board = new Board(walls);
         layeredPane.add(board, JLayeredPane.DEFAULT_LAYER);
@@ -40,11 +46,16 @@ public class Bomberman extends JFrame implements KeyListener {
 		pack();
 		setResizable(true);
 		setLocationRelativeTo(null);
-		board.addPlayer(playerMe, startMe);
-		board.addPlayer(o, startOpp);
+// 		board.addPlayer(playerMe, startMe);
+// 		board.addPlayer(o, startOpp);
     }
     
-        public void keyPressed(KeyEvent e) {
+    public void startGame() {
+    	board.addPlayer(this.playerMe, this.startMe);
+		board.addPlayer(this.playerOpp, this.startOpp);
+    }
+    
+	public void keyPressed(KeyEvent e) {
         JPanel panel = (JPanel) board.getComponent(loc);
         int key = e.getKeyCode();
 //         playerMe = board.getPlayer();
