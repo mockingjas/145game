@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class MyClient {
 	String msg;
 	Bomberman b;
-	Player p;
+	Player playerMe;
+	Player playerOpp;
 	String playerName;
 	
 	public static void main (String args[]) {
@@ -29,6 +30,7 @@ public class MyClient {
 	}
 	class clientThread extends Thread {
 		MyConnection con;
+		int startMe, startOpp;
 		clientThread(MyConnection con) {
 			this.con = con;
 		}
@@ -37,11 +39,17 @@ public class MyClient {
 			try {
 				while(!(msg=con.getMessage()).equals("/quit")) {
 					if(msg.startsWith("/thisisme")) {
-						p = new Player(msg.substring(10, msg.length()));
+						playerMe = new Player(msg.substring(10));
+					} else if (msg.startsWith("/startpos ")) {
+						startMe = Integer.parseInt(msg.substring(10));
+					} else if(msg.startsWith("/thisisopp ")) {
+						playerOpp = new Player(msg.substring(11));
+					} else if (msg.startsWith("/opponentstartpos ")) {
+						startOpp = Integer.parseInt(msg.substring(18));
 					} else if(msg.startsWith("/map ")) {
-						b = new Bomberman(con, p, msg.substring(5));
+						b = new Bomberman(con, playerMe, playerOpp, msg.substring(5), startMe, startOpp);
 						b.setVisible(true);
-						b.setTitle(p.name + " - Bomberman");
+						b.setTitle(playerMe.name + " - Bomberman");
 						b.repaint();
 						System.out.println(msg.substring(5));
 					} else if(msg.startsWith("/playerMoveLeft")) {

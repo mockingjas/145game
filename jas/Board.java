@@ -63,10 +63,9 @@ public class Board extends JPanel {
         this.setVisible(true);
     }
     
-    public void addPlayer (Player p) {
-        player = p;
-        Random rand = new Random();
-        int start = rand.nextInt(4);
+    public void addPlayer (Player p, int start) {
+        // Random rand = new Random();
+        // int start = rand.nextInt(4);
         JPanel panel = null;
         if (start == 0) {
             loc = 0;

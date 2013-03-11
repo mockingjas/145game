@@ -13,14 +13,14 @@ public class Bomberman extends JFrame implements KeyListener {
     
     Board board;
     JLayeredPane layeredPane;
-    Player player;
+    Player playerMe;
     int loc;
     int bomb;
     Timer t;
     MyConnection con;
     String walls; 
     
-    public Bomberman (MyConnection con, Player p, String walls) {
+    public Bomberman (MyConnection con, Player p, Player o, String walls, int startMe, int startOpp) {
         
         this.con = con;
         setTitle("Bomberman");
@@ -30,7 +30,7 @@ public class Bomberman extends JFrame implements KeyListener {
         layeredPane.setPreferredSize(boardSize);
         addKeyListener(this);
         
-        player = p;
+        playerMe = p;
         this.walls = walls;
         
         board = new Board(walls);
@@ -40,17 +40,18 @@ public class Bomberman extends JFrame implements KeyListener {
 		pack();
 		setResizable(true);
 		setLocationRelativeTo(null);
-		board.addPlayer(p);
+		board.addPlayer(playerMe, startMe);
+		board.addPlayer(o, startOpp);
     }
     
         public void keyPressed(KeyEvent e) {
         JPanel panel = (JPanel) board.getComponent(loc);
         int key = e.getKeyCode();
-//         player = board.getPlayer();
+//         playerMe = board.getPlayer();
         int loc = board.getLoc();
         
         if (key == KeyEvent.VK_LEFT) {
-        	con.sendMessage("/playerMoveLeft " + (loc-1) + " " + player.name);
+        	con.sendMessage("/playerMoveLeft " + (loc-1) + " " + playerMe.name);
             
         }
 
@@ -95,19 +96,19 @@ public class Bomberman extends JFrame implements KeyListener {
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_LEFT) {
-//             player.dx = 0;
+//             playerMe.dx = 0;
         }
 
         if (key == KeyEvent.VK_RIGHT) {
-//             player.dx = 0;
+//             playerMe.dx = 0;
         }
 
         if (key == KeyEvent.VK_UP) {
-//             player.dy = 0;
+//             playerMe.dy = 0;
         }
 
         if (key == KeyEvent.VK_DOWN) {
-//             player.dy = 0;
+//             playerMe.dy = 0;
         }
         
         if (key == KeyEvent.VK_SPACE) {
