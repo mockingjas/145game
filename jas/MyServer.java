@@ -21,31 +21,32 @@ public class MyServer {
 					walls += "1";	// may wall
 				else walls += "0";	// walang wall
 			}
-			int start = 0, start1 = 0, start2 = 0;
+			
+			int start1 = 0, start2 = 0;
+			
+			rand = new Random();
+			start1 = rand.nextInt(4);
+			System.out.println("Start1: " + start1);
+			do{
+				rand = new Random();
+				start2 = rand.nextInt(4);
+			} while(start1 == start2);
+			System.out.println("Start2: " + start2);
+			
 			System.out.println(walls.length());
 			String[] playernames = {"mario", "luigi"};
 			int count = 0;
 			while(true) {
 				Socket socket = ssocket.accept();
 				System.out.println("Server: " + socket.getInetAddress() + " connect!\n");
-				++count;					
-				if( count == 1 ){
-					rand = new Random();
-					start = rand.nextInt(4);
-					start1 = start;
-					System.out.println("Start1: " + start);
+				++count;
+				Threads t;
+				if(count ==1) {
+					t = new Threads(socket, count, playernames[0], playernames[1], walls, start1, start2);
 				}
-				if( count == 2 ){
-					do{
-						rand = new Random();
-						start = rand.nextInt(4);
-					} while(start1 == start);
-					start2 = start;
-					System.out.println("Start2: " + start);
+				else {
+					t = new Threads(socket, count, playernames[1], playernames[0], walls, start2, start1);
 				}
-				
-				Threads t = new Threads(socket, count, playernames[count-1], walls);
-				
 				t.start();
 			}
 			

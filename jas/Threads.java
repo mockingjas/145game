@@ -39,15 +39,18 @@ public class Threads extends Thread{
 		return cnt;
 	}
 	
-	public Threads (Socket s, int clientID, String playerName, String walls) {
+	public Threads (Socket s, int clientID, String playerName, String oppName, String walls, int startMe, int startOpp) {
 		this.ss = s;
 		this.playerName = playerName;
 		try {
 			this.con = new MyConnection(this.ss);
 			this.con.playerName = playerName;
 			this.clientList.add(this.con);
- 			con.sendMessage("/thisisme " + this.playerName);
 			sendToAll("Server message: " + this.playerName + " has connected");
+ 			con.sendMessage("/thisisme " + this.playerName);
+			con.sendMessage("/startpos " + startMe);
+			con.sendMessage("/thisisopp " + oppName);
+			con.sendMessage("/opponentstartpos " + startOpp);
 			con.sendMessage("/map " + walls);
 			for(int i = 0; i < clientList.size(); i++) {
 				//clientList.get(i).
