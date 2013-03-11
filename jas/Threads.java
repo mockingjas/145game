@@ -46,13 +46,13 @@ public class Threads extends Thread{
 			this.con = new MyConnection(this.ss);
 			this.con.playerName = playerName;
 			this.clientList.add(this.con);
- 			sendToAll("Server message: " + this.playerName + " has connected");
  			con.sendMessage("/thisisme " + this.playerName);
- 			sendToAll("/map " + walls);
- 			for(int i = 0; i < clientList.size(); i++) {
- 				//clientList.get(i).
- 			}
-						
+			sendToAll("Server message: " + this.playerName + " has connected");
+			con.sendMessage("/map " + walls);
+			for(int i = 0; i < clientList.size(); i++) {
+				//clientList.get(i).
+			}
+	// }		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

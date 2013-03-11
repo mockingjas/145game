@@ -49,6 +49,11 @@ public class Board extends JPanel {
 
         for(int i = 0; i < 121; i++) {
         	if(walls.charAt(i) == '1') {
+				Color p = this.getComponent(i).getBackground();
+				int g = p.getGreen();
+                int r = p.getRed();
+                int b = p.getBlue();
+				if((r == 128 && b == 128 && g == 128)) continue;
         		this.getComponent(i).setBackground(Color.green);
                 JLabel temp = new JLabel(new ImageIcon("data/bricks.png"));
                 ((JPanel)this.getComponent(i)).add(temp);
