@@ -90,11 +90,21 @@ public class Bomberman extends JFrame implements KeyListener {
 		repaint();
 	}
 	
-	public void updateOpponent(int newLoc) {
-		JPanel panel = (JPanel) board.getComponent(newLoc);
-		playerOpp = new Player("data/" + playerOpp.name + "_left.gif");
-		playerOpp.loc = newLoc;
+	public void updateOpponent(int oldLoc, int direction) {
+		JPanel panel = (JPanel) board.getComponent(oldLoc);
+		panel.remove(playerOpp.piece);
+		int newLoc = 0;
+		switch (direction) {
+			case 0:	newLoc = playerOpp.moveLeft(board, oldLoc); break;
+			case 1:	newLoc = playerOpp.moveRight(board, oldLoc); break;
+			case 2:	newLoc = playerOpp.moveUp(board, oldLoc); break;
+			case 3:	newLoc = playerOpp.moveDown(board, oldLoc); break;
+		}
+		panel = (JPanel) board.getComponent(newLoc);
+		playerOpp = new Player(playerOpp.name, direction, newLoc);
 		panel.add(playerOpp.piece);
+		validate();
+		repaint();
 	}
 	
     JPanel p;
