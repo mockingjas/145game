@@ -50,21 +50,31 @@ public class Bomberman extends JFrame implements KeyListener {
     
 	public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        
+        JPanel panel = (JPanel) board.getComponent(playerMe.loc);
+		panel.remove(playerMe.piece);
+		int old = playerMe.loc;
         if (key == KeyEvent.VK_LEFT) {
-        	con.sendMessage("/playerMoveLeft " + playerMe.name + " " + (playerMe.loc));
+			int newLoc = playerMe.moveLeft(board, playerMe.loc);
+			playerMe = new Player(playerMe.name, 0, newLoc);
+        	con.sendMessage("/playerMoveLeft " + playerMe.name + " " + old);
         }
 
         if (key == KeyEvent.VK_RIGHT) {
-            con.sendMessage("/playerMoveRight " + playerMe.name + " " + (playerMe.loc));
+			int newLoc = playerMe.moveRight(board, playerMe.loc);
+			playerMe = new Player(playerMe.name, 1, newLoc);
+            con.sendMessage("/playerMoveRight " + playerMe.name + " " + old);
         }
 
         if (key == KeyEvent.VK_UP) {
-            con.sendMessage("/playerMoveUp " + playerMe.name + " " + (playerMe.loc));
+			int newLoc = playerMe.moveUp(board, playerMe.loc);
+			playerMe = new Player(playerMe.name, 2, newLoc);
+            con.sendMessage("/playerMoveUp " + playerMe.name + " " + old);
         }
 
         if (key == KeyEvent.VK_DOWN) {
-            con.sendMessage("/playerMoveDown " + playerMe.name + " " + (playerMe.loc));
+			int newLoc = playerMe.moveDown(board, playerMe.loc);
+			playerMe = new Player(playerMe.name, 3, newLoc);
+            con.sendMessage("/playerMoveDown " + playerMe.name + " " + old);
         }
         
         if (key == KeyEvent.VK_SPACE) {
@@ -72,6 +82,20 @@ public class Bomberman extends JFrame implements KeyListener {
         }
         System.err.println(playerMe.loc);
     }
+	
+	public void updateBoard() {
+		JPanel panel = (JPanel) board.getComponent(playerMe.loc);
+		panel.add(playerMe.piece);
+		validate();
+		repaint();
+	}
+	
+	public void updateOpponent(int newLoc) {
+		JPanel panel = (JPanel) board.getComponent(newLoc);
+		playerOpp = new Player("data/" + playerOpp.name + "_left.gif");
+		playerOpp.loc = newLoc;
+		panel.add(playerOpp.piece);
+	}
 	
     JPanel p;
     public void fire(int loc) {

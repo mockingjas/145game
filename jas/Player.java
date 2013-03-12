@@ -13,6 +13,17 @@ public class Player {
 		piece = new JLabel( new ImageIcon("data/" + name + ".gif") );
         this.name = name;
     }
+	
+	public Player(String name, int direction, int loc) {
+		switch (direction) {
+			case 0:	piece = new JLabel( new ImageIcon("data/" + name + "_left.gif") ); break;
+			case 1:	piece = new JLabel( new ImageIcon("data/" + name + "_right.gif") ); break;
+			case 2: piece = new JLabel( new ImageIcon("data/" + name + ".gif") ); break;
+			case 3:	piece = new JLabel( new ImageIcon("data/" + name + ".gif") ); break;
+		}
+		this.name  = name;
+		this.loc = loc;
+	}
 
     public void move() {
         x += dx;
