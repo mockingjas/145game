@@ -74,7 +74,7 @@ public class MyClient {
 							b.playerMe.name = playerMe.name;
 							playerMe.loc = newLoc;
 							b.playerMe.loc = newLoc;
-							panel.add(playerMe);
+							panel.add(playerMe.piece);
 						} else if (msg.substring(16,21).equals(playerOpp.name)) {
 							int newLoc = playerOpp.moveLeft(b.board, Integer.parseInt(loc[2]));
 							JPanel panel = (JPanel) b.board.getComponent(newLoc);
@@ -82,7 +82,7 @@ public class MyClient {
 							b.playerOpp.name = playerOpp.name;
 							playerOpp.loc = newLoc;
 							b.playerOpp.loc = newLoc;
-							panel.add(playerOpp);
+							panel.add(playerOpp.piece);
 						}
 						b.validate();
 						b.repaint();
@@ -98,7 +98,7 @@ public class MyClient {
 							b.playerMe.name = playerMe.name;
 							playerMe.loc = newLoc;
 							b.playerMe.loc = newLoc;
-							panel.add(playerMe);
+							panel.add(playerMe.piece);
 						} else if (msg.substring(17,22).equals(playerOpp.name)) {
 							int newLoc = playerOpp.moveRight(b.board, Integer.parseInt(loc[2]));
 							JPanel panel = (JPanel) b.board.getComponent(newLoc);
@@ -106,7 +106,7 @@ public class MyClient {
 							b.playerOpp.name = playerOpp.name;
 							playerOpp.loc = newLoc;
 							b.playerOpp.loc = newLoc;
-							panel.add(playerOpp);
+							panel.add(playerOpp.piece);
 						}
 						b.validate();
 						b.repaint();
@@ -122,7 +122,7 @@ public class MyClient {
 							b.playerMe.name = playerMe.name;
 							playerMe.loc = newLoc;
 							b.playerMe.loc = newLoc;
-							panel.add(playerMe);
+							panel.add(playerMe.piece);
 						} else if (msg.substring(14,19).equals(playerOpp.name)) {
 							int newLoc = playerOpp.moveUp(b.board, Integer.parseInt(loc[2]));
 							JPanel panel = (JPanel) b.board.getComponent(newLoc);
@@ -130,7 +130,7 @@ public class MyClient {
 							b.playerOpp.name = playerOpp.name;
 							playerOpp.loc = newLoc;
 							b.playerOpp.loc = newLoc;
-							panel.add(playerOpp);
+							panel.add(playerOpp.piece);
 						}
 						b.validate();
 						b.repaint();
@@ -146,7 +146,7 @@ public class MyClient {
 							b.playerMe.name = playerMe.name;
 							playerMe.loc = newLoc;
 							b.playerMe.loc = newLoc;
-							panel.add(playerMe);
+							panel.add(playerMe.piece);
 						} else if (msg.substring(16,21).equals(playerOpp.name)) {
 							int newLoc = playerOpp.moveDown(b.board, Integer.parseInt(loc[2]));
 							JPanel panel = (JPanel) b.board.getComponent(newLoc);
@@ -154,7 +154,7 @@ public class MyClient {
 							b.playerOpp.name = playerOpp.name;
 							playerOpp.loc = newLoc;
 							b.playerOpp.loc = newLoc;
-							panel.add(playerOpp);
+							panel.add(playerOpp.piece);
 						}
 						b.validate();
 						b.repaint();

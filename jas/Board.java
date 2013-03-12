@@ -8,7 +8,7 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class Board extends JPanel {
     
-    Player playerMe, playerOpp;
+//    Player playerMe, playerOpp;
     Timer t;
     int bomb;
     public Board(String walls) {
@@ -79,7 +79,7 @@ public class Board extends JPanel {
             panel = (JPanel) this.getComponent(120);
         }
         p.loc = loc;
-        panel.add(p);
+        panel.add(p.piece);
         validate();
         repaint();
         return p.loc;
