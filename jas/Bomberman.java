@@ -119,19 +119,5 @@ public class Bomberman extends JFrame implements KeyListener {
     @Override
     public void keyTyped(KeyEvent ke) {
     }
- 
-    /*
-    
-    public static void main(String[] args) {
-        Bomberman b = new Bomberman();
-        b.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        b.pack();
-        b.setResizable(true);
-        b.setLocationRelativeTo(null);
-        b.setVisible(true);
-        
-        Player mario = new Player("data/mario.gif");
-        b.board.addPlayer(mario);
-    }
-    */
+	
 }

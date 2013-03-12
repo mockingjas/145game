@@ -1,10 +1,6 @@
 import java.awt.Color;
 import javax.swing.*;
 
-/**
- *
- * @author joyamendoza
- */
 public class Player extends JLabel {
 	
 	String name;

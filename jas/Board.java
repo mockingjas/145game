@@ -63,8 +63,6 @@ public class Board extends JPanel {
     }
     
     public int addPlayer (Player p, int start) {
-        // Random rand = new Random();
-        // int start = rand.nextInt(4);
         JPanel panel = null;
         int loc = 0;
         if (start == 0) {
@@ -87,11 +85,4 @@ public class Board extends JPanel {
         return p.loc;
     }
 	
-//     public Player getPlayer () {
-//         return player;
-//     }
-    
-//     public int getLoc() {
-//         return loc;
-//     }
 }
