@@ -11,6 +11,7 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class Bomberman extends JFrame implements KeyListener {
     
+	//main players
     Board board;
     JLayeredPane layeredPane;
     Player playerMe;
@@ -78,7 +79,7 @@ public class Bomberman extends JFrame implements KeyListener {
         }
         
         if (key == KeyEvent.VK_SPACE) {
-            con.sendMessage("/playerBomb " + playerMe.name + " " + (playerMe.loc-1));
+            con.sendMessage("/playerBomb " + playerMe.name + " " + old);
         }
         System.err.println(playerMe.loc);
     }
@@ -105,6 +106,15 @@ public class Bomberman extends JFrame implements KeyListener {
 		panel.add(playerOpp.piece);
 		validate();
 		repaint();
+	}
+	
+	public void updateBomb(int bombLoc, String name) {
+		updateBoard();
+		JPanel panel = (JPanel) board.getComponent(bombLoc);
+		panel.add( new JLabel( new ImageIcon("data/bomb.png") ) );
+		validate();
+		repaint();
+		System.out.println(name);
 	}
 	
     JPanel p;

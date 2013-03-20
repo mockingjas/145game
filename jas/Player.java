@@ -7,11 +7,14 @@ public class Player {
 	String name;
     int x, y, dx, dy;
     int startPos, loc;
+	int bombLen, bombCount;
 
     public Player(String name) {
 //        super(new ImageIcon("data/"+name+".gif"));
 		piece = new JLabel( new ImageIcon("data/" + name + ".gif") );
         this.name = name;
+		this.bombCount = 1;
+		this.bombLen = 1;
     }
 	
 	public Player(String name, int direction, int loc) {
@@ -29,8 +32,8 @@ public class Player {
         x += dx;
         y += dy;
     }
-
-    public int moveLeft(Board board, int loc) {
+	
+	public int moveLeft(Board board, int loc) {
         dx = -1;
         if (loc - 1 >= 0 || loc % 11 != 0) {
             Color p = ((JPanel) board.getComponent(loc - 1)).getBackground();

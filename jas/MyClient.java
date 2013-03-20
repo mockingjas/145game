@@ -35,6 +35,15 @@ public class MyClient {
 			this.con = con;
 		}
 		
+		class threadulit extends Thread {
+			threadulit() {
+				
+			}
+			public void run() {
+				
+			}
+		}
+		
 		public void run() {
 			try {
 				while(!(msg=con.getMessage()).equals("/quit")) {
@@ -104,13 +113,21 @@ public class MyClient {
 						}
 						System.out.println(msg);						
 					}
+					else if (msg.startsWith("/playerBomb ")) {
+						String[] loc = msg.split(" ");
+						int bombLoc = Integer.parseInt(loc[2]);
+						if(loc[1].equals(b.playerMe.name)) {
+							b.playerMe.bombCount--;
+							System.out.println("ako to");
+						}
+						b.updateBomb(bombLoc, loc[1]);
+					}
 					else {
 						System.out.println(msg);
 					}
 					msg = "";
 				}
 				if(msg.equals("/quit")) {
-					//c.setVisible(false);
 					System.exit(0);
 				}
 			} catch (Exception e) {
