@@ -45,12 +45,12 @@ public class Player {
             int b = p.getBlue();
 
             // Bawal green
-            if ((r == 0 && b == 0 && g == 255) || loc % 11 == 0) {
-            } //Bawal gray
-            else if ((r == 128 && b == 128 && g == 128) || loc % 11 == 0) {
-            } else {
-                loc--;
-            }
+            if ((r == 0 && b == 0 && g == 255) || loc % 11 == 0) {}
+			//Bawal gray
+            else if ((r == 128 && b == 128 && g == 128) || loc % 11 == 0) {}
+			// Bawal white
+			else if( (r == 255 && b == 255 && g == 255) || loc < 11 ) {}
+			else loc--;
         }
         return loc;
     }
@@ -66,9 +66,11 @@ public class Player {
 			int b = p.getBlue();
 
 			// Bawal green
-			if( (r == 0 && b == 0 && g == 255) || loc % 11 == 10 ){}
+			if( (r == 0 && b == 0 && g == 255) || loc % 11 == 10 ) {}
 			//Bawal gray
-			else if( (r == 128 && b == 128 && g == 128) || loc % 11 == 10 ){}
+			else if( (r == 128 && b == 128 && g == 128) || loc % 11 == 10 ) {}
+			// Bawal white
+			else if( (r == 255 && b == 255 && g == 255) || loc % 11 == 10 ) {}
 			else loc++;
         }
         return loc;
@@ -85,9 +87,11 @@ public class Player {
 			int b = p.getBlue();
 
 			// Bawal green
-			if( (r == 0 && b == 0 && g == 255) || loc < 11 ){}
-			//Bawal gray
-			else if( (r == 128 && b == 128 && g == 128) || loc < 11 ){}
+			if( (r == 0 && b == 0 && g == 255) || loc < 11 ) {}
+			// Bawal gray
+			else if( (r == 128 && b == 128 && g == 128) || loc < 11 ) {}
+			// Bawal white
+			else if( (r == 255 && b == 255 && g == 255) || loc < 11 ) {}
 			else loc -= 11;
 		}
 		return loc;		
@@ -104,9 +108,11 @@ public class Player {
 			int b = p.getBlue();
 
 			// Bawal green
-			if( (r == 0 && b == 0 && g == 255) || loc > 109 ){}
+			if( (r == 0 && b == 0 && g == 255) || loc > 109 ) {}
 			//Bawal gray
-			else if( (r == 128 && b == 128 && g == 128) || loc > 109 ){}
+			else if( (r == 128 && b == 128 && g == 128) || loc > 109 ) {}
+			// Bawal white
+			else if( (r == 255 && b == 255 && g == 255) || loc > 109 ) {}
 			else loc += 11;
 		}
 		return loc;			
