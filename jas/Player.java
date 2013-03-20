@@ -17,7 +17,7 @@ public class Player {
 		this.bombLen = 1;
     }
 	
-	public Player(String name, int direction, int loc) {
+	public Player(String name, int direction, int loc, int bombCount) {
 		switch (direction) {
 			case 0:	piece = new JLabel( new ImageIcon("data/" + name + "_left.gif") ); break;
 			case 1:	piece = new JLabel( new ImageIcon("data/" + name + "_right.gif") ); break;
@@ -26,6 +26,7 @@ public class Player {
 		}
 		this.name  = name;
 		this.loc = loc;
+		this.bombCount = bombCount;
 	}
 
     public void move() {

@@ -33,6 +33,8 @@ public class Bomberman extends JFrame implements KeyListener {
         
         playerMe = p;
         playerOpp = o;
+		playerMe.bombCount = 1;
+		playerOpp.bombCount = 1;
         this.walls = walls;
         
         board = new Board(walls);
@@ -56,30 +58,39 @@ public class Bomberman extends JFrame implements KeyListener {
 		int old = playerMe.loc;
         if (key == KeyEvent.VK_LEFT) {
 			int newLoc = playerMe.moveLeft(board, playerMe.loc);
-			playerMe = new Player(playerMe.name, 0, newLoc);
+			int bombCount = playerMe.bombCount;
+			playerMe = new Player(playerMe.name, 0, newLoc, bombCount);
         	con.sendMessage("/playerMoveLeft " + playerMe.name + " " + old);
         }
 
         if (key == KeyEvent.VK_RIGHT) {
 			int newLoc = playerMe.moveRight(board, playerMe.loc);
-			playerMe = new Player(playerMe.name, 1, newLoc);
+			int bombCount = playerMe.bombCount;
+			playerMe = new Player(playerMe.name, 1, newLoc, bombCount);
             con.sendMessage("/playerMoveRight " + playerMe.name + " " + old);
         }
 
         if (key == KeyEvent.VK_UP) {
 			int newLoc = playerMe.moveUp(board, playerMe.loc);
-			playerMe = new Player(playerMe.name, 2, newLoc);
+			int bombCount = playerMe.bombCount;
+			playerMe = new Player(playerMe.name, 2, newLoc, bombCount);
             con.sendMessage("/playerMoveUp " + playerMe.name + " " + old);
         }
 
         if (key == KeyEvent.VK_DOWN) {
 			int newLoc = playerMe.moveDown(board, playerMe.loc);
-			playerMe = new Player(playerMe.name, 3, newLoc);
+			int bombCount = playerMe.bombCount;
+			playerMe = new Player(playerMe.name, 3, newLoc, bombCount);
             con.sendMessage("/playerMoveDown " + playerMe.name + " " + old);
         }
         
         if (key == KeyEvent.VK_SPACE) {
-            con.sendMessage("/playerBomb " + playerMe.name + " " + old);
+			System.out.println("bombcount: " + playerMe.bombCount);
+			if(playerMe.bombCount > 0) {
+				System.out.println("pwede");
+				playerMe.bombCount--;
+				con.sendMessage("/playerBomb " + playerMe.name + " " + old);
+			}
         }
         System.err.println(playerMe.loc);
     }
@@ -102,39 +113,38 @@ public class Bomberman extends JFrame implements KeyListener {
 			case 3:	newLoc = playerOpp.moveDown(board, oldLoc); break;
 		}
 		panel = (JPanel) board.getComponent(newLoc);
-		playerOpp = new Player(playerOpp.name, direction, newLoc);
+		int bombCount = playerOpp.bombCount;
+		playerOpp = new Player(playerOpp.name, direction, newLoc, bombCount);
 		panel.add(playerOpp.piece);
 		validate();
 		repaint();
 	}
 	
-	public void updateBomb(int bombLoc, String name) {
+	public void updateBomb(int bombLoc) {
 		updateBoard();
 		JPanel panel = (JPanel) board.getComponent(bombLoc);
+		panel.setBackground(Color.white);
 		panel.add( new JLabel( new ImageIcon("data/bomb.png") ) );
 		validate();
 		repaint();
-		System.out.println(name);
 	}
 	
-    JPanel p;
-    public void fire(int loc) {
+    public void fire(int bombLoc) {
         System.out.println("FIRE!");
-        System.err.println(loc);
-        p = (JPanel) this.getComponent(loc);
+        JPanel p = (JPanel) board.getComponent(bombLoc);
         p.removeAll();
         p.add(new JLabel(new ImageIcon("data/fire_mid.png")));
         validate();
         repaint();
-        t.stop();
-        ActionListener taskPerformer = new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                p.removeAll();
-            }
-        };
-        Timer x = new Timer(2000, taskPerformer);
-        System.err.println("asdfasdf");
     }
+	
+	public void removeBomb(int bombLoc) {
+		JPanel panel = (JPanel) board.getComponent(bombLoc);
+		panel.setBackground(Color.black);
+		panel.removeAll();
+		validate();
+		repaint();
+	}
 
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();

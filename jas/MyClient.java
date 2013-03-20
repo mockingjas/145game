@@ -35,12 +35,26 @@ public class MyClient {
 			this.con = con;
 		}
 		
-		class threadulit extends Thread {
-			threadulit() {
-				
+		class bombThread extends Thread {
+			int loc;
+			String name;
+			bombThread(int loc, String name) {
+				this.loc = loc;
+				this.name = name;
 			}
 			public void run() {
-				
+				try {
+					b.updateBomb(loc);
+					Thread.sleep(3000);
+					System.out.println("tapos na 3 secs");
+					if(name.equals(playerMe.name)) b.playerMe.bombCount++;
+					else b.playerOpp.bombCount++;
+					b.fire(loc);
+					Thread.sleep(2000);
+					b.removeBomb(loc);
+				} catch (Exception e) {
+					
+				}
 			}
 		}
 		
@@ -116,11 +130,13 @@ public class MyClient {
 					else if (msg.startsWith("/playerBomb ")) {
 						String[] loc = msg.split(" ");
 						int bombLoc = Integer.parseInt(loc[2]);
-						if(loc[1].equals(b.playerMe.name)) {
-							b.playerMe.bombCount--;
-							System.out.println("ako to");
-						}
-						b.updateBomb(bombLoc, loc[1]);
+//						if(loc[1].equals(b.playerMe.name)) {
+//							b.playerMe.bombCount--;
+//							
+//							System.out.println("ako to");
+//						}
+						bombThread bt = new bombThread(bombLoc, loc[1]);
+						bt.start();
 					}
 					else {
 						System.out.println(msg);
