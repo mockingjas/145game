@@ -54,8 +54,10 @@ public class Threads extends Thread{
 			con.sendMessage("/startpos " + startMe);
 			con.sendMessage("/thisisopp " + oppName);
 			con.sendMessage("/opponentstartpos " + startOpp);
+			StartScreen start = new StartScreen(con, walls, playerName);
+			start.setVisible(true);
 			con.sendMessage("/map " + walls);
-			if(playerName == "luigi") {
+			if( playerName.equals("luigi") ){
 				sendToAll("/startGame");
 			}
 			for(int i = 0; i < clientList.size(); i++) {

@@ -85,10 +85,12 @@ public class MyClient {
 					} 
 					else if (msg.startsWith("/map ")) {
 						b = new Bomberman(con, playerMe, playerOpp, msg.substring(5));
-						b.setVisible(true);
 						b.setTitle(playerMe.name + " - Bomberman");
 						b.repaint();
 						System.out.println(msg.substring(5));
+					}
+					else if( msg.equals("/display") ){
+						b.setVisible(true);
 					}
 					else if (msg.startsWith("/startGame")) {
 						b.startGame();
