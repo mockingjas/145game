@@ -46,7 +46,6 @@ public class MyClient {
 				try {
 					b.updateBomb(loc);
 					Thread.sleep(3000);
-					System.out.println("tapos na 3 secs");
 					if(name.equals(playerMe.name)) b.playerMe.bombCount++;
 					else b.playerOpp.bombCount++;
 					b.fire(loc);

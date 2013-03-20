@@ -134,6 +134,12 @@ public class Bomberman extends JFrame implements KeyListener {
         JPanel p = (JPanel) board.getComponent(bombLoc);
         p.removeAll();
         p.add(new JLabel(new ImageIcon("data/fire_mid.png")));
+		JPanel side = (JPanel) board.getComponent(bombLoc-1);
+		Color c;
+//		if (side.getBackground()) {
+			
+//		}
+		
         validate();
         repaint();
     }
