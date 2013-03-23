@@ -11,7 +11,6 @@ public class Player {
 	boolean dead = false;
 
     public Player(String name) {
-//        super(new ImageIcon("data/"+name+".gif"));
 		piece = new JLabel( new ImageIcon("data/" + name + ".gif") );
         this.name = name;
 		this.bombCount = 1;
@@ -30,11 +29,6 @@ public class Player {
 		this.bombCount = bombCount;
 		this.bombLen = bombLen;
 	}
-
-    public void move() {
-        x += dx;
-        y += dy;
-    }
 	
 	public int moveLeft(Board board, int loc) {
         dx = -1;
@@ -42,9 +36,12 @@ public class Player {
             Color p = ((JPanel) board.getComponent(loc - 1)).getBackground();
             System.out.println(p);
 			
+			if  ((p == Color.red || p == Color.black) && loc % 11 != 0) loc--;
+			
+			
 			// Bawal green/gray/white
-            if (Color.green == p || Color.gray == p || Color.white == p || loc % 11 == 0) {}
-			else loc--;
+//            if (Color.green == p || Color.gray == p || Color.white == p || loc % 11 == 0) {}
+//			else loc--;
         }
         return loc;
     }
@@ -55,9 +52,11 @@ public class Player {
 			Color p = ((JPanel)board.getComponent(loc+1)).getBackground();
 			System.out.println(p);
 			
+			if  ((p == Color.red || p == Color.black) && loc % 11 != 10) loc++;
+			
 			// Bawal green/gray/white
-			if(Color.green == p || Color.gray == p || Color.white == p || loc % 11 == 10 ) {}
-			else loc++;
+//			if(Color.green == p || Color.gray == p || Color.white == p || loc % 11 == 10 ) {}
+//			else loc++;
         }
         return loc;
     }
@@ -68,9 +67,11 @@ public class Player {
             Color p = ((JPanel)board.getComponent(loc-11)).getBackground();
             System.out.println(p);
 			
+			if  ((p == Color.red || p == Color.black) && loc >= 11) loc-=11;
+			
 			// Bawal green/gray/white
-			if(Color.green == p || Color.gray == p || Color.white == p || loc < 11 ) {}
-			else loc -= 11;
+//			if(Color.green == p || Color.gray == p || Color.white == p || loc < 11 ) {}
+//			else loc -= 11;
 		}
 		return loc;		
 	}
@@ -80,23 +81,17 @@ public class Player {
         if(loc+11 < 121 || loc <= 109) {
             Color p = ((JPanel)board.getComponent(loc+11)).getBackground();
             System.out.println(p);
-
+			
+			if  ((p == Color.red || p == Color.black) && loc <= 109) loc+=11;
+			
 			int g = p.getGreen();
 			int r = p.getRed();
 			int b = p.getBlue();
 
 			// Bawal green/gray/white
-			if(Color.green == p || Color.gray == p || Color.white == p || loc > 109 ) {}
-			else loc += 11;
+//			if(Color.green == p || Color.gray == p || Color.white == p || loc > 109 ) {}
+//			else loc += 11;
 		}
 		return loc;			
 	}
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
 }
