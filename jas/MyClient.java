@@ -3,6 +3,7 @@ import java.net.*;
 import java.util.Scanner;
 import javax.swing.*;
 
+
 public class MyClient {
 	String msg;
 	Bomberman b;

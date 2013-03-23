@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.net.URL;
+import javax.sound.sampled.*;
+import javax.swing.*;
 
 public class StartScreen extends JFrame{
 	// GUI
@@ -35,6 +38,8 @@ public class StartScreen extends JFrame{
 		this.add(startBg);
 		startBg.setBounds(0, 0, 800, 600);
 				
+		SoundClipTest sc = new SoundClipTest();
+		
 		start.setBounds(300, 450, 170, 80);
 		start.setIcon(btn);
 		startBg.add(start);
@@ -51,6 +56,30 @@ public class StartScreen extends JFrame{
 				con.sendMessage("/startTime");
 			}
 		}
+	}
+	
+	public class SoundClipTest {
+   
+	   // Constructor
+	   public SoundClipTest() {
+	   
+		  try {
+			 // Open an audio input stream.
+			File soundFile = new File("dumbshort.wav");
+			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+			 // Get a sound clip resource.
+			Clip clip = AudioSystem.getClip();
+			 // Open audio clip and load samples from the audio input stream.
+			clip.open(audioIn);
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+		  } catch (UnsupportedAudioFileException e) {
+			 e.printStackTrace();
+		  } catch (IOException e) {
+			 e.printStackTrace();
+		  } catch (LineUnavailableException e) {
+			 e.printStackTrace();
+		  }
+	   }
 	}
 			
 }
