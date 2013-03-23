@@ -8,6 +8,7 @@ public class Player {
     int x, y, dx, dy;
     int startPos, loc;
 	int bombLen, bombCount;
+	boolean dead = false;
 
     public Player(String name) {
 //        super(new ImageIcon("data/"+name+".gif"));

@@ -31,6 +31,7 @@ public class MyClient {
 	}
 	class clientThread extends Thread {
 		MyConnection con;
+		bombThread bt;
 		clientThread(MyConnection con) {
 			this.con = con;
 		}
@@ -58,6 +59,7 @@ public class MyClient {
 					b.fire(loc, bombLen);
 					Thread.sleep(2000);
 					b.removeBomb(loc);
+					Thread.sleep(1000);
 				} catch (Exception e) {
 					
 				}
@@ -141,13 +143,20 @@ public class MyClient {
 					else if (msg.startsWith("/playerBomb ")) {
 						String[] loc = msg.split(" ");
 						int bombLoc = Integer.parseInt(loc[2]);
-//						if(loc[1].equals(b.playerMe.name)) {
-//							b.playerMe.bombCount--;
-//							
-//							System.out.println("ako to");
-//						}
-						bombThread bt = new bombThread(bombLoc, loc[1]);
+						bt = new bombThread(bombLoc, loc[1]);
 						bt.start();
+					}
+					else if (msg.startsWith("/dead ")) {
+						String[] name = msg.split(" ");
+						if(name[1].equals(playerMe.name)) {
+							JOptionPane.showMessageDialog(b, "GAME OVER! YOU DIED :(");
+							playerMe.piece.setVisible(false);
+							playerMe.dead = true;
+						} else {
+							JOptionPane.showMessageDialog(b, "GAME OVER! YOU WIN! :D");
+							playerOpp.piece.setVisible(false);
+							playerOpp.dead = true;
+						}
 					}
 					else {
 						System.out.println(msg);
