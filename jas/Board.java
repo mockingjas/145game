@@ -21,19 +21,36 @@ public class Board extends JPanel {
 		
         // this, white - traversible, gray - pillars
         JPanel square;
+		JLayeredPane squareLayer;
         for (int i = 0; i < 121; i++) {
+			squareLayer = new JLayeredPane();
+			squareLayer.setPreferredSize(new Dimension(55, 52));
             square = new JPanel(new BorderLayout());
-            String file_bg = "";
+            square.add(squareLayer);
+			
+			String file_bg = "";
             int row = (i / 11) % 2;
             if (row == 0) {
-                square.setBackground(Color.black);
-				// file_bg = "data/grass2.jpg";
+				if(walls.charAt(i) == '1') {
+					square.setBackground(Color.green);
+					file_bg = "data/bricks.png";
+//					temp = new JLabel(new ImageIcon("data/bricks.png"));
+//					((JPanel)this.getComponent(i)).add(temp);
+				} else {
+					square.setBackground(Color.black);
+					file_bg = "data/grass.png";
+				}
                 
-            } 
+            }
             else {
                 if (i % 2 == 1) {
-                    square.setBackground(Color.black);
-				// file_bg = "data/grass2.jpg";
+					if(walls.charAt(i) == 1) {
+						square.setBackground(Color.green);
+						file_bg = "data/bricks.png";
+					} else {
+						square.setBackground(Color.black);
+						file_bg = "data/grass.png";
+					}
                 } else {
                     square.setBackground(Color.gray);
                     file_bg = "data/blocks.png";
@@ -41,23 +58,19 @@ public class Board extends JPanel {
             }
             JLabel temp = new JLabel(new ImageIcon(file_bg));
             temp.setVisible(true);
-            square.add(temp);
+//            square.add(temp);
+			int x;
+			if ( file_bg.equals("data/bricks.png")) {
+				squareLayer.add(new JLabel( new ImageIcon("data/grass.png") ), new Integer(1) );
+				squareLayer.add(temp, new Integer(2));
+			}
+			else 
+				squareLayer.add(temp, new Integer(1));
             this.add(square);
-        }
-        
-        Random rand = new Random();
-
-        for(int i = 0; i < 121; i++) {
-        	if(walls.charAt(i) == '1') {
-				Color p = this.getComponent(i).getBackground();
-				int g = p.getGreen();
-                int r = p.getRed();
-                int b = p.getBlue();
-				if((r == 128 && b == 128 && g == 128)) continue;
-        		this.getComponent(i).setBackground(Color.green);
-                JLabel temp = new JLabel(new ImageIcon("data/bricks.png"));
-                ((JPanel)this.getComponent(i)).add(temp);
-        	}
+			temp.setBounds( 0, 0,  55, 55 );
+			
+			
+			
         }
         
         this.setVisible(true);
@@ -80,7 +93,8 @@ public class Board extends JPanel {
             panel = (JPanel) this.getComponent(120);
         }
         p.loc = loc;
-        panel.add(p.piece);
+        ((JLayeredPane) panel.getComponent(0)).add(p.piece, new Integer(2));
+		p.piece.setBounds(0,0,55,55);
         validate();
         repaint();
         return p.loc;
