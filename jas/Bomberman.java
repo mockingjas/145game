@@ -235,6 +235,7 @@ public class Bomberman extends JFrame implements KeyListener {
 						playerMe.dead = true;
 					}
 				}
+				else break;
 			}
 		}
 		if(playerMe.dead) {
