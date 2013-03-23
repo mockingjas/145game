@@ -19,7 +19,7 @@ public class MyServer {
 				int r = rand.nextInt(2);
 				if( r == 0 && i != 0 && i != 1 && i != 9 && i != 10 && i != 11 && i != 21 && i != 99 && i != 109 && i != 110 && i != 111 && i != 119 && i != 120) {
 					walls += "1";	// may wall
-					r = rand.nextInt(3);
+					r = rand.nextInt(5);
 					bonuses += r;
 				}
 				else {

@@ -276,7 +276,7 @@ public class Bomberman extends JFrame implements KeyListener {
 		}
     }
 	
-	public void removeBomb(int bombLoc) {
+	public void removeBomb(int bombLoc, int bombLen) {
 		JPanel panel = (JPanel) board.getComponent(bombLoc);
 		panel.setBackground(Color.black);
 		panel.removeAll();
@@ -291,7 +291,7 @@ public class Bomberman extends JFrame implements KeyListener {
 		while(j <= 4) {
 			System.out.println("REMOVE direction: " + DIRECT[j]);
 			int i = 1;
-			while(true) {			
+			while(i <= bombLen) {
 				side = (JPanel) board.getComponent(bombLoc+(DIRECTION[j]*i));
 				c = side.getBackground();
 				if(c == Color.red) {
@@ -311,6 +311,7 @@ public class Bomberman extends JFrame implements KeyListener {
 						side.add( new JLabel( new ImageIcon("data/shroom.gif") ) );
 					}
 					else side.setBackground(Color.black);
+					break;
 				}
 				else { System.out.println("not red"); break; }
 				validate();

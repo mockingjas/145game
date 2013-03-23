@@ -59,7 +59,7 @@ public class MyClient {
 					}
 					b.fire(loc, bombLen);
 					Thread.sleep(2000);
-					b.removeBomb(loc);
+					b.removeBomb(loc, bombLen);
 					Thread.sleep(1000);
 				} catch (Exception e) {
 					
