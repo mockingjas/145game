@@ -42,7 +42,7 @@ public class Threads extends Thread{
 		return cnt;
 	}
 	
-	public Threads (Socket s, int clientID, String playerName, String oppName, String walls, int startMe, int startOpp) {
+	public Threads (Socket s, int clientID, String playerName, String oppName, String walls, String bonuses, int startMe, int startOpp) {
 		this.ss = s;
 		this.playerName = playerName;
 		try {
@@ -56,7 +56,7 @@ public class Threads extends Thread{
 			con.sendMessage("/opponentstartpos " + startOpp);
 			StartScreen start = new StartScreen(con, walls, playerName);
 			start.setVisible(true);
-			con.sendMessage("/map " + walls);
+			con.sendMessage("/map " + walls + " " + bonuses);
 			if( playerName.equals("luigi") ){
 				sendToAll("/startGame");
 				sendToAll("/startTime");

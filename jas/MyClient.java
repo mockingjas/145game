@@ -87,7 +87,8 @@ public class MyClient {
 						playerOpp.startPos = startOpp;
 					} 
 					else if (msg.startsWith("/map ")) {
-						b = new Bomberman(con, playerMe, playerOpp, msg.substring(5));
+						String[] parts = msg.split(" ");
+						b = new Bomberman(con, playerMe, playerOpp, parts[1], parts[2]);
 						b.setTitle(playerMe.name + " - Bomberman");
 						b.repaint();
 						System.out.println(msg.substring(5));

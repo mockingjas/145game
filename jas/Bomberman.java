@@ -19,7 +19,7 @@ public class Bomberman extends JFrame implements KeyListener {
     int bomb;
     Timer t;
     MyConnection con;
-    String walls; 
+    String walls, bonuses;
 	
 	// TIMER
 	Timer timer;
@@ -28,7 +28,7 @@ public class Bomberman extends JFrame implements KeyListener {
 	JLabel timerLabel; 
 	int count;
     
-    public Bomberman (MyConnection con, Player p, Player o, String walls) {
+    public Bomberman (MyConnection con, Player p, Player o, String walls, String bonuses) {
         
         this.con = con;
 		this.setSize(600,650);
@@ -46,8 +46,8 @@ public class Bomberman extends JFrame implements KeyListener {
 		playerMe.bombLen = 1;
 		playerOpp.bombLen = 1;
         this.walls = walls;
-        
-        board = new Board(walls);
+        this.bonuses = bonuses;
+        board = new Board(walls, bonuses);
         layeredPane.add(board, JLayeredPane.DEFAULT_LAYER);
         
 		// Timer
@@ -152,7 +152,19 @@ public class Bomberman extends JFrame implements KeyListener {
 		if(panel.getBackground() == Color.red) {
 			JOptionPane.showMessageDialog(this, "GAME OVER! YOU DIED :(");
 			playerMe.piece.setVisible(false);
+		} else if (panel.getBackground() == Color.orange) {
+			playerMe.bombLen++;
+			panel.setBackground(Color.black);
+			panel.removeAll();
+			panel.add(playerMe.piece);
+		} else if (panel.getBackground() == Color.yellow) {
+			playerMe.bombCount++;
+			panel.setBackground(Color.black);
+			panel.removeAll();
+			panel.add(playerMe.piece);
 		}
+		validate();
+		repaint();
 	}
 	
 	public void updateOpponent(int oldLoc, int direction) {
@@ -172,6 +184,21 @@ public class Bomberman extends JFrame implements KeyListener {
 		panel.add(playerOpp.piece);
 		validate();
 		repaint();
+		
+		if (panel.getBackground() == Color.orange) {
+			playerOpp.bombLen++;
+			panel.setBackground(Color.black);
+			panel.removeAll();
+			panel.add(playerOpp.piece);
+		} else if (panel.getBackground() == Color.yellow) {
+			playerOpp.bombCount++;
+			panel.setBackground(Color.black);
+			panel.removeAll();
+			panel.add(playerOpp.piece);
+		}
+		validate();
+		repaint();
+		
 	}
 	
 	public void updateBomb(int bombLoc) {
@@ -194,7 +221,7 @@ public class Bomberman extends JFrame implements KeyListener {
 		final int LEFT = -1, RIGHT = 1, UP = -11, DOWN = 11;
 		final int[] DIRECTION = {-1, 1, -11, 11};
 		final String[] DIRECT = {"left", "right", "up", "down"};
-		bombLen = 2;
+//		bombLen = 2;
 		int fireLoc;
 		boolean condition;
 		for(int j = 0; j < 4; j++) {
@@ -216,18 +243,22 @@ public class Bomberman extends JFrame implements KeyListener {
 					side = (JPanel) board.getComponent(fireLoc);
 					c = side.getBackground();
 					if (c == Color.gray) break;
-					if (c == Color.black || c == Color.green) {
-						if(c == Color.green) {
+					if (c == Color.black || c == Color.green || c == Color.blue) {
+						
+						side.removeAll();
+						
+						if(c != Color.black) {
 							i = bombLen;
 						}
-						side.removeAll();
+						
 						if(i == bombLen) side.add( new JLabel( new ImageIcon("data/fire_" + DIRECT[j] + ".png") ) );
 						else {
 							// horizontal
 							if(j <= 1) side.add( new JLabel( new ImageIcon("data/fire_horizontal.png") ) );
 							else side.add( new JLabel( new ImageIcon("data/fire_vertical.png") ) );
 						}
-						side.setBackground(Color.red);
+						if(c == Color.black || c == Color.green)
+							side.setBackground(Color.red);
 						validate();
 						repaint();
 					}
@@ -267,7 +298,21 @@ public class Bomberman extends JFrame implements KeyListener {
 					System.out.print("red");
 					side.setBackground(Color.black);
 					side.removeAll();
-				} else { System.out.println("not red"); break; }
+				}
+				else if (c == Color.blue) {
+					side.removeAll();
+					System.out.println("blue");
+					if (bonuses.charAt(bombLoc+(DIRECTION[j]*i)) == '1') {
+						side.setBackground(Color.orange);
+						side.add( new JLabel( new ImageIcon("data/star.gif") ) );
+					}
+					else if (bonuses.charAt(bombLoc+(DIRECTION[j]*i)) == '2') {
+						side.setBackground(Color.yellow);
+						side.add( new JLabel( new ImageIcon("data/shroom.gif") ) );
+					}
+					else side.setBackground(Color.black);
+				}
+				else { System.out.println("not red"); break; }
 				validate();
 				repaint();
 				i++;

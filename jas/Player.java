@@ -36,7 +36,7 @@ public class Player {
             Color p = ((JPanel) board.getComponent(loc - 1)).getBackground();
             System.out.println(p);
 			
-			if  ((p == Color.red || p == Color.black) && loc % 11 != 0) loc--;
+			if  ((p == Color.red || p == Color.black || p == Color.orange || p == Color.yellow) && loc % 11 != 0) loc--;
 			
 			
 			// Bawal green/gray/white
@@ -52,7 +52,7 @@ public class Player {
 			Color p = ((JPanel)board.getComponent(loc+1)).getBackground();
 			System.out.println(p);
 			
-			if  ((p == Color.red || p == Color.black) && loc % 11 != 10) loc++;
+			if  ((p == Color.red || p == Color.black || p == Color.orange || p == Color.yellow) && loc % 11 != 10) loc++;
 			
 			// Bawal green/gray/white
 //			if(Color.green == p || Color.gray == p || Color.white == p || loc % 11 == 10 ) {}
@@ -67,7 +67,7 @@ public class Player {
             Color p = ((JPanel)board.getComponent(loc-11)).getBackground();
             System.out.println(p);
 			
-			if  ((p == Color.red || p == Color.black) && loc >= 11) loc-=11;
+			if  ((p == Color.red || p == Color.black || p == Color.orange || p == Color.yellow) && loc >= 11) loc-=11;
 			
 			// Bawal green/gray/white
 //			if(Color.green == p || Color.gray == p || Color.white == p || loc < 11 ) {}
@@ -82,7 +82,7 @@ public class Player {
             Color p = ((JPanel)board.getComponent(loc+11)).getBackground();
             System.out.println(p);
 			
-			if  ((p == Color.red || p == Color.black) && loc <= 109) loc+=11;
+			if  ((p == Color.red || p == Color.black || p == Color.orange || p == Color.yellow) && loc <= 109) loc+=11;
 			
 			int g = p.getGreen();
 			int r = p.getRed();

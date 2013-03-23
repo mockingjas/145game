@@ -12,7 +12,7 @@ public class Board extends JPanel {
     Timer t;
     int bomb;
 	
-    public Board(String walls) {
+    public Board(String walls, String bonuses) {
         Dimension thisSize = new Dimension(600, 600);
         
         this.setLayout(new GridLayout(11, 11));
@@ -44,8 +44,6 @@ public class Board extends JPanel {
             square.add(temp);
             this.add(square);
         }
-        
-        Random rand = new Random();
 
         for(int i = 0; i < 121; i++) {
         	if(walls.charAt(i) == '1') {
@@ -58,6 +56,11 @@ public class Board extends JPanel {
                 JLabel temp = new JLabel(new ImageIcon("data/bricks.png"));
                 ((JPanel)this.getComponent(i)).add(temp);
         	}
+			if(bonuses.charAt(i) == '1') {
+				this.getComponent(i).setBackground(Color.blue);
+			} else if (bonuses.charAt(i) == '2') {
+				this.getComponent(i).setBackground(Color.blue);
+			}
         }
         
         this.setVisible(true);
