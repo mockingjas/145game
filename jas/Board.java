@@ -11,13 +11,14 @@ public class Board extends JPanel {
 //    Player playerMe, playerOpp;
     Timer t;
     int bomb;
+	
     public Board(String walls) {
         Dimension thisSize = new Dimension(600, 600);
         
         this.setLayout(new GridLayout(11, 11));
         this.setPreferredSize(thisSize);
         this.setBounds(0, 0, thisSize.width, thisSize.height);
-        
+		
         // this, white - traversible, gray - pillars
         JPanel square;
         for (int i = 0; i < 121; i++) {
@@ -26,13 +27,13 @@ public class Board extends JPanel {
             int row = (i / 11) % 2;
             if (row == 0) {
                 square.setBackground(Color.black);
-                //file_bg = "data/floor.png";
+				// file_bg = "data/grass2.jpg";
                 
             } 
             else {
                 if (i % 2 == 1) {
                     square.setBackground(Color.black);
-                    //file_bg = "data/floor.png";
+				// file_bg = "data/grass2.jpg";
                 } else {
                     square.setBackground(Color.gray);
                     file_bg = "data/blocks.png";

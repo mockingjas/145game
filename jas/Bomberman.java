@@ -20,12 +20,20 @@ public class Bomberman extends JFrame implements KeyListener {
     Timer t;
     MyConnection con;
     String walls; 
+	
+	// TIMER
+	Timer timer;
+	JLayeredPane gameTimer = new JLayeredPane();
+	JTextField tf = new JTextField();
+	JLabel timerLabel; 
+	int count;
     
     public Bomberman (MyConnection con, Player p, Player o, String walls) {
         
         this.con = con;
+		this.setSize(600,650);
         setTitle("Bomberman");
-        Dimension boardSize = new Dimension(600, 600);
+        Dimension boardSize = new Dimension(600, 650);
         layeredPane = new JLayeredPane();
         getContentPane().add(layeredPane);
         layeredPane.setPreferredSize(boardSize);
@@ -42,12 +50,45 @@ public class Bomberman extends JFrame implements KeyListener {
         board = new Board(walls);
         layeredPane.add(board, JLayeredPane.DEFAULT_LAYER);
         
+		// Timer
+		timerLabel = new JLabel("Waiting..", SwingConstants.CENTER);
+		timerLabel.setBounds(250,600,100,50);
+		layeredPane.add(timerLabel);
+		
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		pack();
 		setResizable(true);
 		setLocationRelativeTo(null);
     }
     
+	public void startTime() {
+		int count = 5;
+		timerLabel.setText("Time left: " + count);
+			
+		TimeClass tc = new TimeClass(count);
+		timer = new Timer(1000, tc);
+		timer.start();
+    }
+    	
+	public class TimeClass implements ActionListener {
+		int counter;
+		int flag = 0;
+		
+		public TimeClass(int counter){
+			this.counter = counter;
+		}
+		
+		public void actionPerformed(ActionEvent tc){
+			counter--;
+			if( counter >= 1 ) timerLabel.setText("Time left: " + counter);
+			else{
+				timer.stop();
+				timerLabel.setText("TIME'S UP!");
+			}
+		}
+		
+	}
+
     public void startGame() {
     	this.playerMe.loc = board.addPlayer(this.playerMe, this.playerMe.startPos);
 		this.playerOpp.loc = board.addPlayer(this.playerOpp, this.playerOpp.startPos);

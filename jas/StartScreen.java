@@ -10,13 +10,12 @@ public class StartScreen extends JFrame{
 	static GroupLayout layout;
 	static Container thiss;
 	MyConnection con;
-	String walls;
-	String playerName;
-	Threads t;
+	String walls, playerName;
 	JLabel startBg = new JLabel();
 	ImageIcon bg = new ImageIcon("data/bg.gif");
 	JButton start = new JButton();
 	ImageIcon btn = new ImageIcon("data/start.png");
+	static int ctr;
 		
     public StartScreen(MyConnection con, String walls, String playerName) {
 		
@@ -25,14 +24,11 @@ public class StartScreen extends JFrame{
 		this.con = con;
 		this.walls = walls;
 		this.playerName = playerName;
+		this.ctr = ctr;
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(800,600);
 		this.setLocationRelativeTo(null);
-		
-		thiss = getContentPane();
-		thiss.setLayout(null);
-		thiss.setBackground(new Color(240,240,240));
 		
 		startBg.setLayout(null);
 		startBg.setIcon(bg);
@@ -50,6 +46,10 @@ public class StartScreen extends JFrame{
 		public void actionPerformed(ActionEvent event){		
 		 	setVisible(false);
 			con.sendMessage("/display");
+			if( playerName.equals("luigi") ){
+				con.sendMessage("/startGame");
+				con.sendMessage("/startTime");
+			}
 		}
 	}
 			

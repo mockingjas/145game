@@ -20,7 +20,7 @@ public class Threads extends Thread{
 					if(msg.equals(null)) continue;
 					else {
 						sendToAll(msg);
-						System.out.println(msg);
+						System.out.println("SEND TO ALL: " + msg);
 					}
 			}
 		} catch (Exception e) {
@@ -59,6 +59,7 @@ public class Threads extends Thread{
 			con.sendMessage("/map " + walls);
 			if( playerName.equals("luigi") ){
 				sendToAll("/startGame");
+				sendToAll("/startTime");
 			}
 			for(int i = 0; i < clientList.size(); i++) {
 				//clientList.get(i).
