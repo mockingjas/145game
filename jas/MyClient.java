@@ -3,7 +3,6 @@ import java.net.*;
 import java.util.Scanner;
 import javax.swing.*;
 
-
 public class MyClient {
 	String msg;
 	Bomberman b;
@@ -12,7 +11,7 @@ public class MyClient {
 	String playerName;
 	int drawCtr; int repMario; int repLuigi;
 	Socket socket;
-	
+
 	public static void main (String args[]) {
 		new MyClient();
 	}
@@ -129,7 +128,6 @@ public class MyClient {
 						String[] name = msg.split(" ");
 //						b.setVisible(false);
 						if(name[1].equals(playerMe.name)) {
-							
 							JOptionPane.showMessageDialog(b, "GAME OVER! YOU DIED :(");
 							playerMe.piece.setVisible(false);
 							playerMe.dead = true;

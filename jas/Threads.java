@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Random;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.sound.sampled.*;
 
 public class Threads extends Thread{
 	Socket ss;
@@ -22,6 +23,7 @@ public class Threads extends Thread{
 					else {
 						String[] options = { "Yes", "No" };
 						if( msg.equals("/drawGame") ){
+							SoundEffect se = new SoundEffect("data/draw.wav");
 							int newGame = JOptionPane.showOptionDialog(null, "GAME OVER: It's a draw!" + "\nRematch?", "Rematch", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.INFORMATION_MESSAGE,null, options, options[0]);
 							System.out.println(newGame + "" + playerName);
