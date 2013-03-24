@@ -4,6 +4,7 @@ import java.net.*;
 import java.util.Date;
 import java.util.Random;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class Threads extends Thread{
 	Socket ss;
@@ -19,7 +20,14 @@ public class Threads extends Thread{
 				msg = con.getMessage();
 					if(msg.equals(null)) continue;
 					else {
-						sendToAll(msg);
+						String[] options = { "Yes", "No" };
+						if( msg.equals("/drawGame") ){
+							int newGame = JOptionPane.showOptionDialog(null, "GAME OVER: It's a draw!" + "\nRematch?", "Rematch", JOptionPane.DEFAULT_OPTION,
+							JOptionPane.INFORMATION_MESSAGE,null, options, options[0]);
+							System.out.println(newGame + "" + playerName);
+							sendToAll("/drawResponse " + newGame + " " + playerName);
+						}
+						else sendToAll(msg);
 						System.out.println("SEND TO ALL: " + msg);
 					}
 			}

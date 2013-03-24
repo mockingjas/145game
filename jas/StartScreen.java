@@ -52,7 +52,7 @@ public class StartScreen extends JFrame{
 		 	setVisible(false);
 			con.sendMessage("/display");
 			System.out.println("COUNT: " + ctr);
-			if( ctr == 1 ){
+			if( ctr % 2 == 1 ){
 				con.sendMessage("/startGame");
 				con.sendMessage("/startTime");
 			}

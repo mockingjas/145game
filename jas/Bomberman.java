@@ -86,7 +86,7 @@ public class Bomberman extends JFrame implements KeyListener {
 			else{
 				timer.stop();
 				timerLabel.setText("TIME'S UP!");
-				JOptionPane.showMessageDialog(null, "GAME IT'S A DRAW!");
+				con.sendMessage("/drawGame");
 			}
 		}
 		

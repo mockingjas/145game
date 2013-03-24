@@ -10,6 +10,8 @@ public class MyClient {
 	Player playerMe;
 	Player playerOpp;
 	String playerName;
+	int drawCtr; int repMario; int repLuigi;
+	Socket socket;
 	
 	public static void main (String args[]) {
 		new MyClient();
@@ -18,7 +20,7 @@ public class MyClient {
 	public MyClient() {
 		try {
 			System.out.println("\nClient: Connecting to server...");
-			Socket socket = new Socket("127.0.0.1",8080);
+			socket = new Socket("127.0.0.1",8080);
 			
 			MyConnection con = new MyConnection(socket);
 			System.out.println("Client: I connected! ^_^\n");
@@ -140,6 +142,25 @@ public class MyClient {
 						b.setVisible(false);
 						msg = "/quit";
 						break;
+					}
+					else if(msg.startsWith("/drawResponse ")){
+						String[] reply = msg.split(" ");
+						System.out.println(reply[1] + reply[2]);
+						drawCtr++;
+						if( reply[2].equals("mario") ) repMario = Integer.parseInt(reply[1]);
+						else repLuigi = Integer.parseInt(reply[1]);
+						System.out.println("COUNT " + drawCtr + "MARIO " + repMario + "LUIGI " + repLuigi);
+						if( drawCtr == 2 ){
+							if( repMario == 0 && repLuigi == 0 ){
+								socket.close();
+								b.setVisible(false);
+								new MyClient();
+							}
+							else{
+								msg = "/quit";
+								break;
+							}
+						}	
 					}
 					else {
 						System.out.println(msg);
