@@ -184,8 +184,7 @@ public class Bomberman extends JFrame implements KeyListener {
 		validate();
 		repaint();
 		if(panel.getBackground() == Color.red) {
-			JOptionPane.showMessageDialog(this, "GAME OVER! YOU DIED :(");
-			playerMe.piece.setVisible(false);
+			con.sendMessage("/dead "+playerMe.name);
 		} else if (panel.getBackground() == Color.orange) {
 			playerMe.bombLen++;
 			panel.setBackground(Color.black);
@@ -348,6 +347,12 @@ public class Bomberman extends JFrame implements KeyListener {
 					
 					side.setBackground(newcolor);
 					
+					if (playerMe.x == fx && playerMe.y == fy) {
+						playerMe.dead = true;
+					} else if (playerOpp.x == fx && playerOpp.y == fy) {
+						playerOpp.dead = true;
+					}
+					
 					
 					if (c != Color.black || len == bombLen) {
 						break;
@@ -361,6 +366,8 @@ public class Bomberman extends JFrame implements KeyListener {
 		
 		if(playerMe.dead) {
 			con.sendMessage("/dead "+playerMe.name);
+		} else if(playerOpp.dead) {
+			con.sendMessage("/dead "+playerOpp.name);
 		}
     }
 	

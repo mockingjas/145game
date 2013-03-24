@@ -125,7 +125,9 @@ public class MyClient {
 					}
 					else if (msg.startsWith("/dead ")) {
 						String[] name = msg.split(" ");
+//						b.setVisible(false);
 						if(name[1].equals(playerMe.name)) {
+							
 							JOptionPane.showMessageDialog(b, "GAME OVER! YOU DIED :(");
 							playerMe.piece.setVisible(false);
 							playerMe.dead = true;
@@ -134,6 +136,10 @@ public class MyClient {
 							playerOpp.piece.setVisible(false);
 							playerOpp.dead = true;
 						}
+						Thread.sleep(3000);
+						b.setVisible(false);
+						msg = "/quit";
+						break;
 					}
 					else {
 						System.out.println(msg);
