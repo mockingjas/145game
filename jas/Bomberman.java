@@ -371,12 +371,16 @@ public class Bomberman extends JFrame implements KeyListener {
 		JPanel side;
 		Color c;
 		int fx, fy;
+		System.out.println("bombLen:" + bombLen);
 		for (int j = 0; j < 4; j++) {
-			int len = 0;
+			System.out.println();
+			int len = bombLen;
 			fx = x;
 			fy = y;
-			while (len <= bombLen) {
-				len++;
+			while (len > 0) {
+				len--;
+				
+				System.out.print("j: " + j + " len: " + len);
 				boolean go = false;
 				switch (j) {
 					case LEFT:
@@ -420,9 +424,15 @@ public class Bomberman extends JFrame implements KeyListener {
 				if (go) {
 					side = board.square[fx][fy];
 					c = side.getBackground();
+					if (c == Color.gray || c == Color.blue || c == Color.green) {
+						System.out.println(c);
+						break;
+					}
 					side.removeAll();
 					Color newcolor = Color.black;
 					
+					
+
 					if (c == Color.red) {
 						newcolor = Color.black;
 						side.setBackground(newcolor);
@@ -448,10 +458,7 @@ public class Bomberman extends JFrame implements KeyListener {
 						repaint();
 					}
 					
-					if (c != Color.red || c != Color.yellow || c != Color.orange) {
-						break;
-					}
-				}
+									} else break;
 			}
 		}
 	}
