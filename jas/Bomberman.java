@@ -160,6 +160,7 @@ public class Bomberman extends JFrame implements KeyListener {
 	
 	public void updateBoard() {
 		JPanel panel = board.square[playerMe.x][playerMe.y];
+		panel.removeAll();
 		panel.add(playerMe.piece);
 		validate();
 		repaint();

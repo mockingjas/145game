@@ -19,10 +19,10 @@ public class Player {
 	
 	public Player(String name, int direction, int x, int y, int bombCount, int bombLen) {
 		switch (direction) {
-			case 0:	piece = new JLabel( new ImageIcon("data/" + name + "_left.gif") ); break;
-			case 1:	piece = new JLabel( new ImageIcon("data/" + name + "_right.gif") ); break;
-			case 2: piece = new JLabel( new ImageIcon("data/" + name + ".gif") ); break;
-			case 3:	piece = new JLabel( new ImageIcon("data/" + name + ".gif") ); break;
+			case 0:	piece = new JLabel( new ImageIcon("data/" + name + "_left2.png") ); break;
+			case 1:	piece = new JLabel( new ImageIcon("data/" + name + "_right2.png") ); break;
+			case 2: piece = new JLabel( new ImageIcon("data/" + name + ".png") ); break;
+			case 3:	piece = new JLabel( new ImageIcon("data/" + name + ".png") ); break;
 		}
 		this.name  = name;
 		this.x = x;

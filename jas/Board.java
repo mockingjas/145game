@@ -79,10 +79,10 @@ public class Board extends JPanel {
         }
         p.loc = loc;
 		this.square[p.x][p.y].removeAll();
-		square[p.x][p.y].add(new JLabel( new ImageIcon("data/grass.jpg")));
-		square[p.x][p.y].add(p.piece);
-//        validate();
-//        repaint();
+//		this.square[p.x][p.y].add(new JLabel( new ImageIcon("data/grass.jpg")));
+		this.square[p.x][p.y].add(p.piece);
+        validate();
+        repaint();
         return p.loc;
     }
 	
