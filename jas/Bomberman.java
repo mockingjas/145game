@@ -407,16 +407,19 @@ public class Bomberman extends JFrame implements KeyListener {
 					}
 					else if (c == Color.orange) {
 						side.add( new JLabel( new ImageIcon("data/star.gif") ) );
+						validate();
+						repaint();
 					}
 					else if (c == Color.yellow) {
 						side.add( new JLabel( new ImageIcon("data/shroom.gif") ) );
+						validate();
+						repaint();
 					}
 					
 					if (c != Color.red || c != Color.yellow || c != Color.orange) {
 						break;
 					}
-					validate();
-					repaint();
+
 				}
 			}
 		}
