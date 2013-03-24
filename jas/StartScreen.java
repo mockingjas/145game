@@ -38,7 +38,7 @@ public class StartScreen extends JFrame{
 		this.add(startBg);
 		startBg.setBounds(0, 0, 800, 600);
 				
-		SoundClipTest sc = new SoundClipTest();
+		//SoundClipTest sc = new SoundClipTest();
 		
 		start.setBounds(300, 450, 170, 80);
 		start.setIcon(btn);

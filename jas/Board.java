@@ -11,6 +11,7 @@ public class Board extends JPanel {
 //    Player playerMe, playerOpp;
     Timer t;
     int bomb;
+	JPanel[][] square;
 	
     public Board(String walls, String bonuses) {
         Dimension thisSize = new Dimension(600, 600);
@@ -20,6 +21,7 @@ public class Board extends JPanel {
         this.setBounds(0, 0, thisSize.width, thisSize.height);
 		
         // this, white - traversible, gray - pillars
+<<<<<<< HEAD
         JPanel square;
         for (int i = 0; i < 121; i++) {
             square = new JPanel(new BorderLayout());
@@ -64,9 +66,46 @@ public class Board extends JPanel {
 				this.getComponent(i).setBackground(Color.blue);
 			} else if (bonuses.charAt(i) == '2') {
 				this.getComponent(i).setBackground(Color.blue);
+=======
+		this.square = new JPanel[11][11];
+		
+		JLabel bg;
+		for (int row = 0; row < 11; row++) {
+			for (int col = 0; col < 11; col++) {
+				this.square[row][col] = new JPanel(new BorderLayout());
+				String file_bg = "";
+				// even rows have no pillars
+				if (row % 2 == 0) {
+					file_bg = "data/grass.jpg";
+					square[row][col].setBackground(Color.black);
+				}
+				// odd rows have alternating pillars
+				else {
+					if (col % 2 == 0) {
+						file_bg = "data/grass.jpg";
+						square[row][col].setBackground(Color.black);
+					} else {
+						square[row][col].setBackground(Color.gray);
+						file_bg = "data/blocks.png";
+					}
+				}
+				// for walls and bonuses
+				if ( square[row][col].getBackground() == Color.black ) {
+					if ( walls.charAt( (row*11)+col ) == '1' ) {
+						file_bg = "data/bricks.png";
+						if ( bonuses.charAt( (row*11)+col ) == '1' || bonuses.charAt( (row*11)+col ) == '2' ) {
+							square[row][col].setBackground(Color.blue);
+						}
+						else {
+							square[row][col].setBackground(Color.green);
+						}
+					}
+				}
+				square[row][col].add( new JLabel( new ImageIcon(file_bg) ) );
+				this.add(square[row][col]);
+>>>>>>> Try
 			}
-        }
-        
+		}
         this.setVisible(true);
     }
     

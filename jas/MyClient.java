@@ -60,9 +60,9 @@ public class MyClient {
 					b.fire(loc, bombLen);
 					Thread.sleep(2000);
 					b.removeBomb(loc, bombLen);
-					Thread.sleep(1000);
-				} catch (Exception e) {
-					
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					System.out.println("interrupted");
 				}
 			}
 		}

@@ -253,15 +253,14 @@ public class Bomberman extends JFrame implements KeyListener {
 						
 						side.removeAll();
 						
-						if(c != Color.black) {
-							i = bombLen;
-						}
-						
 						if(i == bombLen) side.add( new JLabel( new ImageIcon("data/fire_" + DIRECT[j] + ".png") ) );
 						else {
 							// horizontal
 							if(j <= 1) side.add( new JLabel( new ImageIcon("data/fire_horizontal.png") ) );
 							else side.add( new JLabel( new ImageIcon("data/fire_vertical.png") ) );
+						}
+						if(c != Color.black) {
+							i = bombLen;
 						}
 						if(c == Color.black || c == Color.green)
 							side.setBackground(Color.red);
@@ -294,10 +293,10 @@ public class Bomberman extends JFrame implements KeyListener {
 		final String[] DIRECT = {"left", "right", "up", "down"};
 		
 		int j = 0;
-		while(j <= 4) {
+		while(j < 4) {
 			System.out.println("REMOVE direction: " + DIRECT[j]);
 			int i = 1;
-			while(i <= bombLen) {
+			while(i <= bombLen && bombLoc+(DIRECTION[j]*i) < 121) {
 				side = (JPanel) board.getComponent(bombLoc+(DIRECTION[j]*i));
 				c = side.getBackground();
 				if(c == Color.red) {
