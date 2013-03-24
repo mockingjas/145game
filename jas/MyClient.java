@@ -38,15 +38,17 @@ public class MyClient {
 		}
 		
 		class bombThread extends Thread {
-			int loc;
+			int x, y;
 			String name;
-			bombThread(int loc, String name) {
-				this.loc = loc;
+			bombThread(int x, int y, String name) {
+//				this.loc = loc;
+				this.x = x;
+				this.y = y;
 				this.name = name;
 			}
 			public void run() {
 				try {
-					b.updateBomb(loc);
+					b.updateBomb(this.x, this.y);
 					Thread.sleep(3000);
 					int bombLen;
 					if(name.equals(playerMe.name)) {
@@ -57,9 +59,9 @@ public class MyClient {
 						b.playerOpp.bombCount++;
 						bombLen = b.playerOpp.bombLen;
 					}
-					b.fire(loc, bombLen);
+//					b.fire(loc, bombLen);
 					Thread.sleep(2000);
-					b.removeBomb(loc, bombLen);
+//					b.removeBomb(loc, bombLen);
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 					System.out.println("interrupted");
@@ -108,13 +110,19 @@ public class MyClient {
 					else if (msg.startsWith("/startT")) {
 						b.startT();
 					}
+					else if (msg.startsWith("/playerMove ")) {
+						String[] parts = msg.split(" ");
+						if (parts[1].equals(playerMe.name)) b.updateBoard();
+						else b.updateOpponent( 0, Integer.parseInt(parts[2]), Integer.parseInt(parts[3]),  Integer.parseInt(parts[4]) );
+						System.out.println(msg);
+					}
 					else if (msg.startsWith("/playerMoveLeft ")) {
 						System.out.println("LEFT:" + msg.substring(16,21));
 						String[] loc = msg.split(" ");
 						if (msg.substring(16,21).equals(playerMe.name)) {
 							b.updateBoard();
 						} else if (msg.substring(16,21).equals(playerOpp.name)) {
-							b.updateOpponent(Integer.parseInt(loc[2]), 0);
+//							b.updateOpponent(Integer.parseInt(loc[2]), 0);
 						}
 						System.out.println(msg);
 					}
@@ -124,7 +132,7 @@ public class MyClient {
 						if (msg.substring(17,22).equals(playerMe.name)) {
 							b.updateBoard();
 						} else if (msg.substring(17,22).equals(playerOpp.name)) {
-							b.updateOpponent(Integer.parseInt(loc[2]), 1);
+//							b.updateOpponent(Integer.parseInt(loc[2]), 1);
 						}
 						System.out.println(msg);						
 					}
@@ -134,7 +142,7 @@ public class MyClient {
 						if (msg.substring(14,19).equals(playerMe.name)) {
 							b.updateBoard();
 						} else if (msg.substring(14,19).equals(playerOpp.name)) {
-							b.updateOpponent(Integer.parseInt(loc[2]), 2);
+//							b.updateOpponent(Integer.parseInt(loc[2]), 2);
 						}
 						System.out.println(msg);						
 					}
@@ -144,14 +152,16 @@ public class MyClient {
 						if (msg.substring(16,21).equals(playerMe.name)) {
 							b.updateBoard();
 						} else if (msg.substring(16,21).equals(playerOpp.name)) {
-							b.updateOpponent(Integer.parseInt(loc[2]), 3);
+//							b.updateOpponent(Integer.parseInt(loc[2]), 3);
 						}
 						System.out.println(msg);						
 					}
 					else if (msg.startsWith("/playerBomb ")) {
 						String[] loc = msg.split(" ");
-						int bombLoc = Integer.parseInt(loc[2]);
-						bt = new bombThread(bombLoc, loc[1]);
+						int x = Integer.parseInt(loc[2]);
+						int y = Integer.parseInt(loc[3]);
+						
+						bt = new bombThread(x, y, loc[1]);
 						bt.start();
 					}
 					else if (msg.startsWith("/dead ")) {

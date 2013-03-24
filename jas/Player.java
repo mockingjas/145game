@@ -17,7 +17,7 @@ public class Player {
 		this.bombLen = 1;
     }
 	
-	public Player(String name, int direction, int loc, int bombCount, int bombLen) {
+	public Player(String name, int direction, int x, int y, int bombCount, int bombLen) {
 		switch (direction) {
 			case 0:	piece = new JLabel( new ImageIcon("data/" + name + "_left.gif") ); break;
 			case 1:	piece = new JLabel( new ImageIcon("data/" + name + "_right.gif") ); break;
@@ -25,13 +25,51 @@ public class Player {
 			case 3:	piece = new JLabel( new ImageIcon("data/" + name + ".gif") ); break;
 		}
 		this.name  = name;
-		this.loc = loc;
+//		this.loc = loc;
+		this.x = x;
+		this.y = y;
 		this.bombCount = bombCount;
 		this.bombLen = bombLen;
 	}
 	
+	final int LEFT = 0, RIGHT = 1, UP = 2, DOWN = 3;
+	public boolean move(Board board, int direction) {
+		Color p;
+		switch (direction) {
+			case LEFT:
+				p = board.square[x][y-1].getBackground();
+				if (y - 1 >= 0 && (p == Color.red || p == Color.black || p == Color.orange || p == Color.yellow)) {
+					y--;
+					return true;
+				}
+				break;
+			case RIGHT:
+				p = board.square[x][y+1].getBackground();
+				if (y + 1 <= 10 && (p == Color.red || p == Color.black || p == Color.orange || p == Color.yellow)) {
+					y++;
+					return true;
+				}
+				break;
+			case UP:
+				p = board.square[x-1][y].getBackground();
+				if (x - 1 >= 0 && (p == Color.red || p == Color.black || p == Color.orange || p == Color.yellow)) {
+					x--;
+					return true;
+				}
+				break;
+			case DOWN:
+				p = board.square[x+1][y].getBackground();
+				if (x + 1 <= 10 && (p == Color.red || p == Color.black || p == Color.orange || p == Color.yellow)) {
+					x++;
+					return true;
+				}
+				break;
+		}
+		return false;
+	}
+	
+	
 	public int moveLeft(Board board, int loc) {
-        dx = -1;
         if (loc - 1 >= 0 || loc % 11 != 0) {
             Color p = ((JPanel) board.getComponent(loc - 1)).getBackground();
             System.out.println(p);
@@ -47,7 +85,6 @@ public class Player {
     }
 
     public int moveRight(Board board, int loc) {
-        dx = 1;
         if(loc+1 < 121 || loc % 11 != 10) {
 			Color p = ((JPanel)board.getComponent(loc+1)).getBackground();
 			System.out.println(p);
@@ -62,7 +99,6 @@ public class Player {
     }
 	
 	public int moveUp(Board board, int loc){
-		dy = -1;
         if(loc-11 >= 0 || loc >= 11) {
             Color p = ((JPanel)board.getComponent(loc-11)).getBackground();
             System.out.println(p);
@@ -77,7 +113,6 @@ public class Player {
 	}
 	
 	public int moveDown(Board board, int loc){
-		dy = 1;
         if(loc+11 < 121 || loc <= 109) {
             Color p = ((JPanel)board.getComponent(loc+11)).getBackground();
             System.out.println(p);

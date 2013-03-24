@@ -66,19 +66,24 @@ public class Board extends JPanel {
         int loc = 0;
         if (start == 0) {
             loc = 0;
-            panel = (JPanel) this.getComponent(0);
+			p.x = 0; p.y = 0;
+//            panel = (JPanel) this.getComponent(0);
         } else if (start == 1) {
             loc = 10;
-            panel = (JPanel) this.getComponent(10);
+			p.x = 0; p.y = 10;
+//            panel = (JPanel) this.getComponent(10);
         } else if (start == 2) {
             loc = 110;
-            panel = (JPanel) this.getComponent(110);
+			p.x = 10; p.y = 0;
+//            panel = (JPanel) this.getComponent(110);
         } else if (start == 3) {
             loc = 120;
-            panel = (JPanel) this.getComponent(120);
+			p.x = 10; p.y = 10;
+//            panel = (JPanel) this.getComponent(120);
         }
         p.loc = loc;
-        panel.add(p.piece);
+//        panel.add(p.piece);
+		square[p.x][p.y].add(p.piece);
         validate();
         repaint();
         return p.loc;
