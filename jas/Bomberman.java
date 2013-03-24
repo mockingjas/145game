@@ -24,6 +24,7 @@ public class Bomberman extends JFrame implements KeyListener {
 	JLabel timerLabel; 
 	int count;
 	static Font font = new Font("Century Gothic", Font.PLAIN, 20);
+	SoundEffect bg;
     
     public Bomberman (MyConnection con, Player p, Player o, String walls, String bonuses) {
         
@@ -36,7 +37,7 @@ public class Bomberman extends JFrame implements KeyListener {
         layeredPane.setPreferredSize(boardSize);
         addKeyListener(this);
 		
-		SoundEffect bg = new SoundEffect("data/startBg.wav");
+		bg = new SoundEffect("data/startBg.wav");
 		
         playerMe = p;
         playerOpp = o;
@@ -352,9 +353,11 @@ public class Bomberman extends JFrame implements KeyListener {
 					
 					if (playerMe.x == fx && playerMe.y == fy) {
 						playerMe.dead = true;
+						bg.clip.stop();
 						SoundEffect snd = new SoundEffect("data/gameover.wav");
 					} else if (playerOpp.x == fx && playerOpp.y == fy) {
 						playerOpp.dead = true;
+						bg.clip.stop();
 						SoundEffect snd = new SoundEffect("data/win.wav");
 					}
 					
