@@ -5,7 +5,7 @@ public class Player {
 	
 	JLabel piece;
 	String name;
-    int x, y, dx, dy;
+    int x, y;
     int startPos, loc;
 	int bombLen, bombCount;
 	boolean dead = false;

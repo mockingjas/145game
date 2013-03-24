@@ -21,68 +21,21 @@ public class Board extends JPanel {
         this.setBounds(0, 0, thisSize.width, thisSize.height);
 		
         // this, white - traversible, gray - pillars
-<<<<<<< HEAD
-        JPanel square;
-        for (int i = 0; i < 121; i++) {
-            square = new JPanel(new BorderLayout());
-            String file_bg = "";
-            int row = (i / 11) % 2;
-            if (row == 0) {
-                square.setBackground(Color.black);
-				// file_bg = "data/grass2.jpg";
-                
-            } 
-            else {
-                if (i % 2 == 1) {
-                    square.setBackground(Color.black);
-				// file_bg = "data/grass2.jpg";
-                } else {
-                    square.setBackground(Color.gray);
-                    file_bg = "data/blocks.png";
-                }
-            }
-            JLabel temp = new JLabel(new ImageIcon(file_bg));
-            temp.setVisible(true);
-            square.add(temp);
-            this.add(square);
-			validate();
-			repaint();
-        }
-
-        for(int i = 0; i < 121; i++) {
-        	if(walls.charAt(i) == '1') {
-				Color p = this.getComponent(i).getBackground();
-				int g = p.getGreen();
-                int r = p.getRed();
-                int b = p.getBlue();
-				if((r == 128 && b == 128 && g == 128)) continue;
-        		this.getComponent(i).setBackground(Color.green);
-                JLabel temp = new JLabel(new ImageIcon("data/bricks.png"));
-                ((JPanel)this.getComponent(i)).add(temp);
-				validate();
-				repaint();
-        	}
-			if(bonuses.charAt(i) == '1') {
-				this.getComponent(i).setBackground(Color.blue);
-			} else if (bonuses.charAt(i) == '2') {
-				this.getComponent(i).setBackground(Color.blue);
-=======
 		this.square = new JPanel[11][11];
 		
-		JLabel bg;
 		for (int row = 0; row < 11; row++) {
 			for (int col = 0; col < 11; col++) {
 				this.square[row][col] = new JPanel(new BorderLayout());
 				String file_bg = "";
 				// even rows have no pillars
 				if (row % 2 == 0) {
-					file_bg = "data/grass.jpg";
+//					file_bg = "data/grass.jpg";
 					square[row][col].setBackground(Color.black);
 				}
 				// odd rows have alternating pillars
 				else {
 					if (col % 2 == 0) {
-						file_bg = "data/grass.jpg";
+//						file_bg = "data/grass.jpg";
 						square[row][col].setBackground(Color.black);
 					} else {
 						square[row][col].setBackground(Color.gray);
@@ -103,7 +56,6 @@ public class Board extends JPanel {
 				}
 				square[row][col].add( new JLabel( new ImageIcon(file_bg) ) );
 				this.add(square[row][col]);
->>>>>>> Try
 			}
 		}
         this.setVisible(true);

@@ -146,7 +146,6 @@ public class Bomberman extends JFrame implements KeyListener {
 					con.sendMessage("/playerBomb " + playerMe.name + " " + old);
 				}
 			}
-//			System.err.println(playerMe.loc);
 		}
     }
 	
