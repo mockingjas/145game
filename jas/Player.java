@@ -11,7 +11,7 @@ public class Player {
 	boolean dead = false;
 
     public Player(String name) {
-		piece = new JLabel( new ImageIcon("data/" + name + ".gif") );
+		piece = new JLabel( new ImageIcon("data/" + name + ".png") );
         this.name = name;
 		this.bombCount = 1;
 		this.bombLen = 1;

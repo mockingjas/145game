@@ -106,13 +106,18 @@ public class Bomberman extends JFrame implements KeyListener {
     final int LEFT = 0, RIGHT = 1, UP = 2, DOWN = 3;
 	public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-		board.square[playerMe.x][playerMe.y].remove(playerMe.piece);
-		int old = playerMe.loc;
+		int oldx = playerMe.x;
+		int oldy = playerMe.y;
+		board.square[oldx][oldy].remove(playerMe.piece);
+//		int old = playerMe.loc;
 		if(!playerMe.dead) {
 			int bombCount = playerMe.bombCount;
 			int bombLen = playerMe.bombLen;
 			if (key == KeyEvent.VK_LEFT) {
 				if ( playerMe.move(board, LEFT) ) {
+					board.square[oldx][oldy].add( new JLabel( new ImageIcon("data/grass.png") ) );
+					validate();
+					repaint();
 					int x = playerMe.x;
 					int y = playerMe.y;
 					playerMe = new Player(playerMe.name, LEFT, x, y, bombCount, bombLen);
@@ -122,6 +127,9 @@ public class Bomberman extends JFrame implements KeyListener {
 
 			if (key == KeyEvent.VK_RIGHT) {
 				if ( playerMe.move(board, RIGHT) ) {
+					board.square[oldx][oldy].add( new JLabel( new ImageIcon("data/grass.png") ) );
+					validate();
+					repaint();
 					int x = playerMe.x;
 					int y = playerMe.y;
 					playerMe = new Player(playerMe.name, RIGHT, x, y, bombCount, bombLen);
@@ -131,6 +139,9 @@ public class Bomberman extends JFrame implements KeyListener {
 
 			if (key == KeyEvent.VK_UP) {
 				if ( playerMe.move(board, UP) ) {
+					board.square[oldx][oldy].add( new JLabel( new ImageIcon("data/grass.png") ) );
+					validate();
+					repaint();
 					int x = playerMe.x;
 					int y = playerMe.y;
 					playerMe = new Player(playerMe.name, UP, x, y, bombCount, bombLen);
@@ -140,6 +151,9 @@ public class Bomberman extends JFrame implements KeyListener {
 
 			if (key == KeyEvent.VK_DOWN) {
 				if ( playerMe.move(board, DOWN) ) {
+					board.square[oldx][oldy].add( new JLabel( new ImageIcon("data/grass.png") ) );
+					validate();
+					repaint();
 					int x = playerMe.x;
 					int y = playerMe.y;
 					playerMe = new Player(playerMe.name, DOWN, x, y, bombCount, bombLen);
@@ -195,6 +209,9 @@ public class Bomberman extends JFrame implements KeyListener {
 		
 		boolean go = playerOpp.move(board, direction);
 		if(go) {
+			panel.add( new JLabel( new ImageIcon("data/grass.png") ) );
+//			validate();
+//			repaint();
 			panel = board.square[playerOpp.x][playerOpp.y];
 			int bombCount = playerOpp.bombCount;
 			int bombLen = playerOpp.bombLen;
@@ -226,7 +243,7 @@ public class Bomberman extends JFrame implements KeyListener {
 		updateBoard();
 		JPanel panel = board.square[x][y];
 		panel.setBackground(Color.white);
-		panel.add( new JLabel( new ImageIcon("data/bomb.png") ) );
+		panel.add( new JLabel( new ImageIcon("data/bombs.png") ) );
 		validate();
 		repaint();
 	}
@@ -235,7 +252,7 @@ public class Bomberman extends JFrame implements KeyListener {
         System.out.println("FIRE!");
 		JPanel p = board.square[x][y];
         p.removeAll();
-        p.add(new JLabel(new ImageIcon("data/fire_mid.png")));
+        p.add(new JLabel(new ImageIcon("data/fire_mid2.png")));
 		p.setBackground(Color.red);
 		JPanel side;
 		Color c;
@@ -299,13 +316,13 @@ public class Bomberman extends JFrame implements KeyListener {
 					
 					// LIMIT
 					if(len == bombLen) {
-						side.add( new JLabel( new ImageIcon("data/fire_" + DIRECT[j] + ".png") ) );
+						side.add( new JLabel( new ImageIcon("data/fire_" + DIRECT[j] + "2.png") ) );
 						validate();
 						repaint();
 					}
 					else {
-						if(j <= 1) side.add( new JLabel( new ImageIcon("data/fire_horizontal.png") ) );
-						else side.add( new JLabel( new ImageIcon("data/fire_vertical.png") ) );
+						if(j <= 1) side.add( new JLabel( new ImageIcon("data/fire_horizontal2.png") ) );
+						else side.add( new JLabel( new ImageIcon("data/fire_vertical2.png") ) );
 						validate();
 						repaint();
 					}
@@ -345,7 +362,7 @@ public class Bomberman extends JFrame implements KeyListener {
 		JPanel panel = board.square[x][y];
 		panel.removeAll();
 		panel.setBackground(Color.black);
-		
+		panel.add( new JLabel( new ImageIcon("data/grass.png") ) );
 		JPanel side;
 		Color c;
 		int fx, fy;
@@ -404,6 +421,9 @@ public class Bomberman extends JFrame implements KeyListener {
 					if (c == Color.red) {
 						newcolor = Color.black;
 						side.setBackground(newcolor);
+						side.add( new JLabel( new ImageIcon("data/grass.png") ) );
+						validate();
+						repaint();
 					}
 					else if (c == Color.orange) {
 						side.add( new JLabel( new ImageIcon("data/star.gif") ) );

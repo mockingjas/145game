@@ -29,13 +29,13 @@ public class Board extends JPanel {
 				String file_bg = "";
 				// even rows have no pillars
 				if (row % 2 == 0) {
-					file_bg = "data/grass.jpg";
+					file_bg = "data/grass.png";
 					square[row][col].setBackground(Color.black);
 				}
 				// odd rows have alternating pillars
 				else {
 					if (col % 2 == 0) {
-						file_bg = "data/grass.jpg";
+						file_bg = "data/grass.png";
 						square[row][col].setBackground(Color.black);
 					} else {
 						square[row][col].setBackground(Color.gray);
