@@ -402,7 +402,6 @@ public class Bomberman extends JFrame implements KeyListener {
 					
 					if (c == Color.red) {
 						newcolor = Color.black;
-						
 						side.setBackground(newcolor);
 					}
 					else if (c == Color.orange) {
@@ -415,11 +414,9 @@ public class Bomberman extends JFrame implements KeyListener {
 						validate();
 						repaint();
 					}
-					
 					if (c != Color.red || c != Color.yellow || c != Color.orange) {
 						break;
 					}
-
 				}
 			}
 		}

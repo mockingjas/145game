@@ -29,13 +29,13 @@ public class Board extends JPanel {
 				String file_bg = "";
 				// even rows have no pillars
 				if (row % 2 == 0) {
-//					file_bg = "data/grass.jpg";
+					file_bg = "data/grass.jpg";
 					square[row][col].setBackground(Color.black);
 				}
 				// odd rows have alternating pillars
 				else {
 					if (col % 2 == 0) {
-//						file_bg = "data/grass.jpg";
+						file_bg = "data/grass.jpg";
 						square[row][col].setBackground(Color.black);
 					} else {
 						square[row][col].setBackground(Color.gray);
@@ -62,7 +62,7 @@ public class Board extends JPanel {
     }
     
     public int addPlayer (Player p, int start) {
-        JPanel panel = null;
+
         int loc = 0;
         if (start == 0) {
             loc = 0;
@@ -78,9 +78,11 @@ public class Board extends JPanel {
 			p.x = 10; p.y = 10;
         }
         p.loc = loc;
+		this.square[p.x][p.y].removeAll();
+		square[p.x][p.y].add(new JLabel( new ImageIcon("data/grass.jpg")));
 		square[p.x][p.y].add(p.piece);
-        validate();
-        repaint();
+//        validate();
+//        repaint();
         return p.loc;
     }
 	
