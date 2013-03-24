@@ -86,6 +86,7 @@ public class Bomberman extends JFrame implements KeyListener {
 			else{
 				timer.stop();
 				timerLabel.setText("TIME'S UP!");
+				JOptionPane.showMessageDialog(null, "GAME IT'S A DRAW!");
 			}
 		}
 		
@@ -209,7 +210,7 @@ public class Bomberman extends JFrame implements KeyListener {
 		}
 		
 		JPanel panel = board.square[playerOpp.x][playerOpp.y];
-		panel.removeAll();
+		panel.remove(playerOpp.piece);
 		panel.add(new JLabel( new ImageIcon("data/grass.png")));
 		validate();
 		repaint();
@@ -458,7 +459,7 @@ public class Bomberman extends JFrame implements KeyListener {
 						repaint();
 					}
 					
-									} else break;
+				} else break;
 			}
 		}
 	}
