@@ -43,6 +43,8 @@ public class Board extends JPanel {
             temp.setVisible(true);
             square.add(temp);
             this.add(square);
+			validate();
+			repaint();
         }
 
         for(int i = 0; i < 121; i++) {
@@ -55,6 +57,8 @@ public class Board extends JPanel {
         		this.getComponent(i).setBackground(Color.green);
                 JLabel temp = new JLabel(new ImageIcon("data/bricks.png"));
                 ((JPanel)this.getComponent(i)).add(temp);
+				validate();
+				repaint();
         	}
 			if(bonuses.charAt(i) == '1') {
 				this.getComponent(i).setBackground(Color.blue);
