@@ -299,10 +299,14 @@ public class Bomberman extends JFrame implements KeyListener {
 					// LIMIT
 					if(len == bombLen) {
 						side.add( new JLabel( new ImageIcon("data/fire_" + DIRECT[j] + ".png") ) );
+						validate();
+						repaint();
 					}
 					else {
 						if(j <= 1) side.add( new JLabel( new ImageIcon("data/fire_horizontal.png") ) );
 						else side.add( new JLabel( new ImageIcon("data/fire_vertical.png") ) );
+						validate();
+						repaint();
 					}
 					
 					if (c == Color.black || c == Color.green) {
@@ -325,8 +329,7 @@ public class Bomberman extends JFrame implements KeyListener {
 						break;
 					}
 					
-					validate();
-					repaint();
+
 				}
 				
 			}
