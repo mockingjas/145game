@@ -18,6 +18,7 @@ public class StartScreen extends JFrame{
 	ImageIcon bg = new ImageIcon("data/bg.gif");
 	JButton start = new JButton();
 	ImageIcon btn = new ImageIcon("data/start.png");
+	SoundEffect se;
 	static int ctr;
 		
     public StartScreen(MyConnection con, String walls, String playerName) {
@@ -38,7 +39,7 @@ public class StartScreen extends JFrame{
 		this.add(startBg);
 		startBg.setBounds(0, 0, 800, 600);
 				
-		//SoundClipTest sc = new SoundClipTest();
+		se = new SoundEffect("data/start.wav");
 		
 		start.setBounds(300, 450, 170, 80);
 		start.setIcon(btn);
@@ -50,6 +51,7 @@ public class StartScreen extends JFrame{
 	class startGame implements ActionListener{
 		public void actionPerformed(ActionEvent event){		
 		 	setVisible(false);
+			se.clip.stop();
 			con.sendMessage("/display");
 			System.out.println("COUNT: " + ctr);
 			if( ctr % 2 == 1 ){
@@ -59,25 +61,5 @@ public class StartScreen extends JFrame{
 			ctr++;
 		}
 	}
-	
-	public class SoundClipTest {
-   
-	   public SoundClipTest() {
-	   
-		  try {
-			File soundFile = new File("dumbshort.wav");
-			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
-			Clip clip = AudioSystem.getClip();
-			clip.open(audioIn);
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
-		  } catch (UnsupportedAudioFileException e) {
-			 e.printStackTrace();
-		  } catch (IOException e) {
-			 e.printStackTrace();
-		  } catch (LineUnavailableException e) {
-			 e.printStackTrace();
-		  }
-	   }
-	}
-			
+				
 }

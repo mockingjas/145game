@@ -35,7 +35,9 @@ public class Bomberman extends JFrame implements KeyListener {
         getContentPane().add(layeredPane);
         layeredPane.setPreferredSize(boardSize);
         addKeyListener(this);
-        
+		
+		SoundEffect bg = new SoundEffect("data/startBg.wav");
+		
         playerMe = p;
         playerOpp = o;
 		playerMe.bombCount = 1;
@@ -258,6 +260,7 @@ public class Bomberman extends JFrame implements KeyListener {
 		JPanel p = board.square[x][y];
         p.removeAll();
         p.add(new JLabel(new ImageIcon("data/fire_mid2.png")));
+		SoundEffect se = new SoundEffect("data/fire.wav");
 		p.setBackground(Color.red);
 		JPanel side;
 		Color c;
@@ -349,8 +352,10 @@ public class Bomberman extends JFrame implements KeyListener {
 					
 					if (playerMe.x == fx && playerMe.y == fy) {
 						playerMe.dead = true;
+						SoundEffect snd = new SoundEffect("data/gameover.wav");
 					} else if (playerOpp.x == fx && playerOpp.y == fy) {
 						playerOpp.dead = true;
+						SoundEffect snd = new SoundEffect("data/win.wav");
 					}
 					
 					
@@ -438,8 +443,6 @@ public class Bomberman extends JFrame implements KeyListener {
 					}
 					side.removeAll();
 					Color newcolor = Color.black;
-					
-					
 
 					if (c == Color.red) {
 						newcolor = Color.black;
@@ -450,11 +453,13 @@ public class Bomberman extends JFrame implements KeyListener {
 					}
 					else if (c == Color.orange) {
 						side.add( new JLabel( new ImageIcon("data/star.gif") ) );
+						SoundEffect se = new SoundEffect("data/star.wav");
 						validate();
 						repaint();
 					}
 					else if (c == Color.yellow) {
 						side.add( new JLabel( new ImageIcon("data/shroom.gif") ) );
+						SoundEffect se = new SoundEffect("data/shroom.wav");
 						validate();
 						repaint();
 					}
