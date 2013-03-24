@@ -99,8 +99,14 @@ public class MyClient {
 					else if (msg.startsWith("/startGame")) {
 						b.startGame();
 					}
+					else if (msg.startsWith("/startG")){
+						b.startG();
+					}
 					else if (msg.startsWith("/startTime")) {
 						b.startTime();
+					}
+					else if (msg.startsWith("/startT")) {
+						b.startT();
 					}
 					else if (msg.startsWith("/playerMoveLeft ")) {
 						System.out.println("LEFT:" + msg.substring(16,21));

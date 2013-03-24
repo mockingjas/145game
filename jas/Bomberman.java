@@ -1,12 +1,8 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class Bomberman extends JFrame implements KeyListener {
@@ -27,6 +23,7 @@ public class Bomberman extends JFrame implements KeyListener {
 	JTextField tf = new JTextField();
 	JLabel timerLabel; 
 	int count;
+	static Font font = new Font("Century Gothic", Font.PLAIN, 20);
     
     public Bomberman (MyConnection con, Player p, Player o, String walls, String bonuses) {
         
@@ -51,8 +48,9 @@ public class Bomberman extends JFrame implements KeyListener {
         layeredPane.add(board, JLayeredPane.DEFAULT_LAYER);
         
 		// Timer
-		timerLabel = new JLabel("Waiting..", SwingConstants.CENTER);
-		timerLabel.setBounds(250,600,100,50);
+		timerLabel = new JLabel("Waiting for other player..", SwingConstants.CENTER);
+		timerLabel.setFont(font);
+		timerLabel.setBounds(100,600,400,50);
 		layeredPane.add(timerLabel);
 		
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -62,14 +60,18 @@ public class Bomberman extends JFrame implements KeyListener {
     }
     
 	public void startTime() {
-		int count = 5;
+		con.sendMessage("/startT");
+    }
+    	
+	public void startT(){
+		int count = 120;
 		timerLabel.setText("Time left: " + count);
 			
 		TimeClass tc = new TimeClass(count);
 		timer = new Timer(1000, tc);
 		timer.start();
-    }
-    	
+	}
+
 	public class TimeClass implements ActionListener {
 		int counter;
 		int flag = 0;
@@ -90,9 +92,13 @@ public class Bomberman extends JFrame implements KeyListener {
 	}
 
     public void startGame() {
-    	this.playerMe.loc = board.addPlayer(this.playerMe, this.playerMe.startPos);
-		this.playerOpp.loc = board.addPlayer(this.playerOpp, this.playerOpp.startPos);
+		con.sendMessage("/startG");
     }
+	
+	public void startG(){
+		this.playerMe.loc = board.addPlayer(this.playerMe, this.playerMe.startPos);
+		this.playerOpp.loc = board.addPlayer(this.playerOpp, this.playerOpp.startPos);	
+	}
     
 	public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
