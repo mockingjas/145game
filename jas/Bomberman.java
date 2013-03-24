@@ -440,6 +440,14 @@ public class Bomberman extends JFrame implements KeyListener {
 						validate();
 						repaint();
 					}
+					
+					else if (c == Color.black) {
+//						System.out.println("else : " + c);
+						side.add( new JLabel( new ImageIcon("data/grass.png") ) );
+						validate();
+						repaint();
+					}
+					
 					if (c != Color.red || c != Color.yellow || c != Color.orange) {
 						break;
 					}
