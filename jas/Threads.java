@@ -57,13 +57,6 @@ public class Threads extends Thread{
 			StartScreen start = new StartScreen(con, walls, playerName);
 			start.setVisible(true);
 			con.sendMessage("/map " + walls + " " + bonuses);
-/*			if( playerName.equals("luigi") ){
-				sendToAll("/startGame");
-				sendToAll("/startTime");
-			}*/
-			for(int i = 0; i < clientList.size(); i++) {
-				//clientList.get(i).
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
