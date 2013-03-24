@@ -167,6 +167,10 @@ public class Bomberman extends JFrame implements KeyListener {
 					System.out.println("pwede");
 					playerMe.bombCount--;
 					con.sendMessage("/playerBomb " + playerMe.name + " " + playerMe.x + " " + playerMe.y);
+				} else {
+					board.square[oldx][oldy].add(playerMe.piece);
+					validate();
+					repaint();
 				}
 			}
 		}
@@ -327,7 +331,7 @@ public class Bomberman extends JFrame implements KeyListener {
 						repaint();
 					}
 					
-					if (c == Color.black || c == Color.green) {
+					if (c == Color.black || c == Color.green || c == Color.orange || c == Color.yellow) {
 						newcolor = Color.red;
 					}
 					else if (c == Color.blue) {
