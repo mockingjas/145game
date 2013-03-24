@@ -114,7 +114,7 @@ public class Bomberman extends JFrame implements KeyListener {
 			int bombCount = playerMe.bombCount;
 			int bombLen = playerMe.bombLen;
 			if (key == KeyEvent.VK_LEFT) {
-				int newLoc = playerMe.moveLeft(board, playerMe.loc);
+//				int newLoc = playerMe.moveLeft(board, playerMe.loc);
 				if ( playerMe.move(board, LEFT) ) {
 					int x = playerMe.x;
 					int y = playerMe.y;
@@ -125,7 +125,7 @@ public class Bomberman extends JFrame implements KeyListener {
 			}
 
 			if (key == KeyEvent.VK_RIGHT) {
-				int newLoc = playerMe.moveRight(board, playerMe.loc);
+//				int newLoc = playerMe.moveRight(board, playerMe.loc);
 				if ( playerMe.move(board, RIGHT) ) {
 					int x = playerMe.x;
 					int y = playerMe.y;
@@ -138,7 +138,7 @@ public class Bomberman extends JFrame implements KeyListener {
 			}
 
 			if (key == KeyEvent.VK_UP) {
-				int newLoc = playerMe.moveUp(board, playerMe.loc);
+//				int newLoc = playerMe.moveUp(board, playerMe.loc);
 				if ( playerMe.move(board, UP) ) {
 					int x = playerMe.x;
 					int y = playerMe.y;
@@ -151,7 +151,7 @@ public class Bomberman extends JFrame implements KeyListener {
 			}
 
 			if (key == KeyEvent.VK_DOWN) {
-				int newLoc = playerMe.moveDown(board, playerMe.loc);
+//				int newLoc = playerMe.moveDown(board, playerMe.loc);
 				if ( playerMe.move(board, DOWN) ) {
 					int x = playerMe.x;
 					int y = playerMe.y;
@@ -263,18 +263,118 @@ public class Bomberman extends JFrame implements KeyListener {
 		repaint();
 	}
 	
-    public void fire(int bombLoc, int bombLen) {
+    public void fire(int x, int y, int bombLen) {
         System.out.println("FIRE!");
-        JPanel p = (JPanel) board.getComponent(bombLoc);
+//        JPanel p = (JPanel) board.getComponent(bombLoc);
+		JPanel p = board.square[x][y];
         p.removeAll();
         p.add(new JLabel(new ImageIcon("data/fire_mid.png")));
 		p.setBackground(Color.red);
 		JPanel side;
 		Color c;
-		final int LEFT = -1, RIGHT = 1, UP = -11, DOWN = 11;
+//		final int LEFT = -1, RIGHT = 1, UP = -11, DOWN = 11;
 		final int[] DIRECTION = {-1, 1, -11, 11};
 		final String[] DIRECT = {"left", "right", "up", "down"};
 //		bombLen = 2;
+		final int LEFT = 0, RIGHT = 1, UP = 2, DOWN = 3;
+		
+		int fx = x, fy = y;
+		
+		for (int j = 0; j < 4; j++) {
+			int len = 0;
+			fx = x;
+			fy = y;
+			while (len <= bombLen) {
+				len++;
+				boolean go = false;
+				switch (j) {
+					case LEFT:
+						if (fy - 1 >= 0) {
+							c = board.square[fx][fy-1].getBackground();
+							if (c != Color.gray) {
+								fy--;
+								go = true;
+							}
+						}
+						break;
+					case RIGHT:
+						if (fy + 1 <= 10) {
+							c = board.square[fx][fy+1].getBackground();
+							if (c != Color.gray) {
+								fy++;
+								go = true;
+							}
+						}
+						break;
+					case UP:
+						if (fx - 1 >= 0) {
+							c = board.square[fx-1][fy].getBackground();
+							if (c != Color.gray) {
+								fx--;
+								go = true;
+							}
+						}
+						break;
+					case DOWN:
+						if (fx + 1 <= 10) {
+							c = board.square[fx+1][fy].getBackground();
+							if (c != Color.gray) {
+								fx++;
+								go = true;
+							}
+						}
+						break;
+				}
+				
+				if (go) {
+					side = board.square[fx][fy];
+					c = side.getBackground();
+					side.removeAll();
+					Color newcolor = Color.black;
+					
+					// LIMIT
+					if(len == bombLen) {
+						side.add( new JLabel( new ImageIcon("data/fire_" + DIRECT[j] + ".png") ) );
+						break;
+					}
+					else {
+						if(j <= 1) side.add( new JLabel( new ImageIcon("data/fire_horizontal.png") ) );
+						else side.add( new JLabel( new ImageIcon("data/fire_vertical.png") ) );
+					}
+					
+					if (c == Color.black) {
+						newcolor = Color.red;
+					}
+					else if (c == Color.green) {
+						newcolor = Color.red;
+					}
+					else if (c == Color.blue) {
+						int temp = (fx * 11) + fy;
+						if (bonuses.charAt(temp) == '1') {
+							newcolor = Color.orange;
+						} else if (bonuses.charAt(temp) == '2') {
+							newcolor = Color.yellow;
+						}
+					}
+					
+					
+					if (c != Color.black) {
+						break;
+					}
+					
+					side.setBackground(newcolor);
+					
+//					if(c == Color.black || c == Color.green)
+//						side.setBackground(Color.red);
+					validate();
+					repaint();
+				}
+				
+			}
+		}
+		/*
+		
+		
 		int fireLoc;
 		boolean condition;
 		for(int j = 0; j < 4; j++) {
@@ -321,6 +421,7 @@ public class Bomberman extends JFrame implements KeyListener {
 				else break;
 			}
 		}
+		 */
 		if(playerMe.dead) {
 			con.sendMessage("/dead "+playerMe.name);
 //			JOptionPane.showMessageDialog(this, "GAME OVER! YOU DIED :(");
@@ -328,7 +429,21 @@ public class Bomberman extends JFrame implements KeyListener {
 		}
     }
 	
-	public void removeBomb(int bombLoc, int bombLen) {
+	public void removeBomb(int x, int y, int bombLen) {
+		JPanel panel = board.square[x][y];
+		panel.removeAll();
+		panel.setBackground(Color.black);
+		
+		JPanel side;
+		Color c;
+		
+		for (int j = 0; j < 4; j++) {
+			switch (j) {
+					
+			}
+		}
+		
+		/*
 		JPanel panel = (JPanel) board.getComponent(bombLoc);
 		panel.setBackground(Color.black);
 		panel.removeAll();
@@ -375,6 +490,7 @@ public class Bomberman extends JFrame implements KeyListener {
 			System.out.println("j: " + j);
 			j++;
 		}
+		 */
 	}
 
     public void keyReleased(KeyEvent e) {

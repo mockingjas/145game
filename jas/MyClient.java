@@ -60,8 +60,10 @@ public class MyClient {
 						bombLen = b.playerOpp.bombLen;
 					}
 //					b.fire(loc, bombLen);
+					b.fire(x, y, bombLen);
 					Thread.sleep(2000);
 //					b.removeBomb(loc, bombLen);
+					b.removeBomb(x, y, bombLen);
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 					System.out.println("interrupted");
@@ -116,46 +118,46 @@ public class MyClient {
 						else b.updateOpponent( 0, Integer.parseInt(parts[2]), Integer.parseInt(parts[3]),  Integer.parseInt(parts[4]) );
 						System.out.println(msg);
 					}
-					else if (msg.startsWith("/playerMoveLeft ")) {
-						System.out.println("LEFT:" + msg.substring(16,21));
-						String[] loc = msg.split(" ");
-						if (msg.substring(16,21).equals(playerMe.name)) {
-							b.updateBoard();
-						} else if (msg.substring(16,21).equals(playerOpp.name)) {
-//							b.updateOpponent(Integer.parseInt(loc[2]), 0);
-						}
-						System.out.println(msg);
-					}
-					else if (msg.startsWith("/playerMoveRight ")){
-						System.out.println("RIGHT:" + msg.substring(17,22));
-						String[] loc = msg.split(" ");
-						if (msg.substring(17,22).equals(playerMe.name)) {
-							b.updateBoard();
-						} else if (msg.substring(17,22).equals(playerOpp.name)) {
-//							b.updateOpponent(Integer.parseInt(loc[2]), 1);
-						}
-						System.out.println(msg);						
-					}
-					else if (msg.startsWith("/playerMoveUp ")){
-						System.out.println("UP:" + msg.substring(14,19));
-						String[] loc = msg.split(" ");
-						if (msg.substring(14,19).equals(playerMe.name)) {
-							b.updateBoard();
-						} else if (msg.substring(14,19).equals(playerOpp.name)) {
-//							b.updateOpponent(Integer.parseInt(loc[2]), 2);
-						}
-						System.out.println(msg);						
-					}
-					else if (msg.startsWith("/playerMoveDown ")){
-						System.out.println("DOWN:" + msg.substring(16,21));
-						String[] loc = msg.split(" ");
-						if (msg.substring(16,21).equals(playerMe.name)) {
-							b.updateBoard();
-						} else if (msg.substring(16,21).equals(playerOpp.name)) {
-//							b.updateOpponent(Integer.parseInt(loc[2]), 3);
-						}
-						System.out.println(msg);						
-					}
+//					else if (msg.startsWith("/playerMoveLeft ")) {
+//						System.out.println("LEFT:" + msg.substring(16,21));
+//						String[] loc = msg.split(" ");
+//						if (msg.substring(16,21).equals(playerMe.name)) {
+//							b.updateBoard();
+//						} else if (msg.substring(16,21).equals(playerOpp.name)) {
+////							b.updateOpponent(Integer.parseInt(loc[2]), 0);
+//						}
+//						System.out.println(msg);
+//					}
+//					else if (msg.startsWith("/playerMoveRight ")){
+//						System.out.println("RIGHT:" + msg.substring(17,22));
+//						String[] loc = msg.split(" ");
+//						if (msg.substring(17,22).equals(playerMe.name)) {
+//							b.updateBoard();
+//						} else if (msg.substring(17,22).equals(playerOpp.name)) {
+////							b.updateOpponent(Integer.parseInt(loc[2]), 1);
+//						}
+//						System.out.println(msg);						
+//					}
+//					else if (msg.startsWith("/playerMoveUp ")){
+//						System.out.println("UP:" + msg.substring(14,19));
+//						String[] loc = msg.split(" ");
+//						if (msg.substring(14,19).equals(playerMe.name)) {
+//							b.updateBoard();
+//						} else if (msg.substring(14,19).equals(playerOpp.name)) {
+////							b.updateOpponent(Integer.parseInt(loc[2]), 2);
+//						}
+//						System.out.println(msg);						
+//					}
+//					else if (msg.startsWith("/playerMoveDown ")){
+//						System.out.println("DOWN:" + msg.substring(16,21));
+//						String[] loc = msg.split(" ");
+//						if (msg.substring(16,21).equals(playerMe.name)) {
+//							b.updateBoard();
+//						} else if (msg.substring(16,21).equals(playerOpp.name)) {
+////							b.updateOpponent(Integer.parseInt(loc[2]), 3);
+//						}
+//						System.out.println(msg);						
+//					}
 					else if (msg.startsWith("/playerBomb ")) {
 						String[] loc = msg.split(" ");
 						int x = Integer.parseInt(loc[2]);
