@@ -208,24 +208,25 @@ public class Bomberman extends JFrame implements KeyListener {
 			case 3:	x--; break;
 		}
 		
-		JPanel panel = board.square[x][y];
-		panel.remove(playerOpp.piece);
+		JPanel panel = board.square[playerOpp.x][playerOpp.y];
+		panel.removeAll();
+		panel.add(new JLabel( new ImageIcon("data/grass.png")));
+		validate();
+		repaint();
 		
 		boolean go = playerOpp.move(board, direction);
 		if(go) {
-			panel.add( new JLabel( new ImageIcon("data/grass.png") ) );
-//			validate();
-//			repaint();
-			panel = board.square[playerOpp.x][playerOpp.y];
 			int bombCount = playerOpp.bombCount;
 			int bombLen = playerOpp.bombLen;
 			int nx = playerOpp.x;
 			int ny = playerOpp.y;
 			playerOpp = new Player(playerOpp.name, direction, nx, ny, bombCount, bombLen);
+			panel = board.square[nx][ny];
+			panel.removeAll();
 			panel.add(playerOpp.piece);
+			validate();
+			repaint();
 		}
-		validate();
-		repaint();
 		
 		if (panel.getBackground() == Color.orange) {
 			playerOpp.bombLen++;
