@@ -11,6 +11,7 @@ public class MyClient {
 	String playerName;
 	int drawCtr, repMario, repLuigi, win, lose;
 	Socket socket;
+	String IP, port;
 	
 	public static void main (String args[]) {
 		new MyClient();
@@ -19,7 +20,10 @@ public class MyClient {
 	public MyClient() {
 		try {
 			System.out.println("\nClient: Connecting to server...");
-			socket = new Socket("127.0.0.1",8080);
+			IP = JOptionPane.showInputDialog("Enter IP Address: ");
+			port = JOptionPane.showInputDialog("Enter Port: ");
+			socket = new Socket(IP, Integer.parseInt(port));
+//			socket = new Socket("127.0.0.1",8080);
 			
 			MyConnection con = new MyConnection(socket);
 			System.out.println("Client: I connected! ^_^\n");
