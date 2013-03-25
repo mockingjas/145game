@@ -9,9 +9,9 @@ public class MyClient {
 	Player playerMe;
 	Player playerOpp;
 	String playerName;
-	int drawCtr; int repMario; int repLuigi;
+	int drawCtr, repMario, repLuigi, win, lose;
 	Socket socket;
-
+	
 	public static void main (String args[]) {
 		new MyClient();
 	}
@@ -127,19 +127,32 @@ public class MyClient {
 					else if (msg.startsWith("/dead ")) {
 						String[] name = msg.split(" ");
 //						b.setVisible(false);
+						String[] options = { "Yes", "No" };
+							
 						if(name[1].equals(playerMe.name)) {
-							JOptionPane.showMessageDialog(b, "GAME OVER! YOU DIED :(");
+//							JOptionPane.showMessageDialog(b, "GAME OVER! YOU DIED :(");
+							lose = JOptionPane.showOptionDialog(b, "GAME OVER! YOU DIED :(" + "\nNew Game?", "Game Over!", JOptionPane.DEFAULT_OPTION,
+							JOptionPane.INFORMATION_MESSAGE,null, options, options[0]);
 							playerMe.piece.setVisible(false);
 							playerMe.dead = true;
 						} else {
-							JOptionPane.showMessageDialog(b, "GAME OVER! YOU WIN! :D");
+//							JOptionPane.showMessageDialog(b, "GAME OVER! YOU WIN! :D");
+							win = JOptionPane.showOptionDialog(b, "GAME OVER! YOU WIN :D" + "\nNew Game?", "Game Over!", JOptionPane.DEFAULT_OPTION,
+							JOptionPane.INFORMATION_MESSAGE,null, options, options[0]);
 							playerOpp.piece.setVisible(false);
 							playerOpp.dead = true;
 						}
-						Thread.sleep(3000);
-						b.setVisible(false);
-						msg = "/quit";
-						break;
+						if( lose == 0 && win == 0 ){
+							socket.close();
+							b.setVisible(false);
+							new MyClient();
+						}
+						else{
+							Thread.sleep(3000);
+							b.setVisible(false);
+							msg = "/quit";
+							break;
+						}
 					}
 					else if(msg.startsWith("/drawResponse ")){
 						String[] reply = msg.split(" ");

@@ -58,7 +58,7 @@ public class Bomberman extends JFrame implements KeyListener {
 		
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		pack();
-		setResizable(true);
+		setResizable(false);
 		setLocationRelativeTo(null);
     }
     

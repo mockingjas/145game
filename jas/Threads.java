@@ -24,7 +24,7 @@ public class Threads extends Thread{
 						String[] options = { "Yes", "No" };
 						if( msg.equals("/drawGame") ){
 							SoundEffect se = new SoundEffect("data/draw.wav");
-							int newGame = JOptionPane.showOptionDialog(null, "GAME OVER: It's a draw!" + "\nRematch?", "Rematch", JOptionPane.DEFAULT_OPTION,
+							int newGame = JOptionPane.showOptionDialog(null, "TIME'S UP: It's a draw!" + "\nRematch?", "Rematch", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.INFORMATION_MESSAGE,null, options, options[0]);
 							System.out.println(newGame + "" + playerName);
 							sendToAll("/drawResponse " + newGame + " " + playerName);
